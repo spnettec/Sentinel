@@ -21,8 +21,11 @@ import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowRule;
 import com.alibaba.csp.sentinel.slots.system.SystemRule;
-import com.alibaba.fastjson.parser.ParserConfig;
-import com.alibaba.fastjson.serializer.SerializeConfig;
+import com.alibaba.fastjson2.JSONFactory;
+import com.alibaba.fastjson2.reader.ObjectReaderCreator;
+import com.alibaba.fastjson2.writer.ObjectWriter;
+import com.alibaba.fastjson2.writer.ObjectWriterAdapter;
+import com.alibaba.fastjson2.writer.ObjectWriterCreator;
 import io.quarkus.runtime.annotations.Recorder;
 
 /**
@@ -35,18 +38,18 @@ public class SentinelRecorder {
      * register fastjson serializer deserializer class info
      */
     public void init() {
-        SerializeConfig.getGlobalInstance().getObjectWriter(NodeVo.class);
-        SerializeConfig.getGlobalInstance().getObjectWriter(FlowRule.class);
-        SerializeConfig.getGlobalInstance().getObjectWriter(SystemRule.class);
-        SerializeConfig.getGlobalInstance().getObjectWriter(DegradeRule.class);
-        SerializeConfig.getGlobalInstance().getObjectWriter(AuthorityRule.class);
-        SerializeConfig.getGlobalInstance().getObjectWriter(ParamFlowRule.class);
+        JSONFactory.getDefaultObjectWriterProvider().registerIfAbsent(NodeVo.class, ObjectWriterCreator.INSTANCE.createObjectWriter(NodeVo.class));
+        JSONFactory.getDefaultObjectWriterProvider().registerIfAbsent(FlowRule.class, ObjectWriterCreator.INSTANCE.createObjectWriter(FlowRule.class));
+        JSONFactory.getDefaultObjectWriterProvider().registerIfAbsent(SystemRule.class, ObjectWriterCreator.INSTANCE.createObjectWriter(SystemRule.class));
+        JSONFactory.getDefaultObjectWriterProvider().registerIfAbsent(DegradeRule.class, ObjectWriterCreator.INSTANCE.createObjectWriter(DegradeRule.class));
+        JSONFactory.getDefaultObjectWriterProvider().registerIfAbsent(AuthorityRule.class, ObjectWriterCreator.INSTANCE.createObjectWriter(AuthorityRule.class));
+        JSONFactory.getDefaultObjectWriterProvider().registerIfAbsent(ParamFlowRule.class, ObjectWriterCreator.INSTANCE.createObjectWriter(ParamFlowRule.class));
 
-        ParserConfig.getGlobalInstance().getDeserializer(NodeVo.class);
-        ParserConfig.getGlobalInstance().getDeserializer(FlowRule.class);
-        ParserConfig.getGlobalInstance().getDeserializer(SystemRule.class);
-        ParserConfig.getGlobalInstance().getDeserializer(DegradeRule.class);
-        ParserConfig.getGlobalInstance().getDeserializer(AuthorityRule.class);
-        ParserConfig.getGlobalInstance().getDeserializer(ParamFlowRule.class);
+        JSONFactory.getDefaultObjectReaderProvider().registerIfAbsent(NodeVo.class, ObjectReaderCreator.INSTANCE.createObjectReader(NodeVo.class));
+        JSONFactory.getDefaultObjectReaderProvider().registerIfAbsent(FlowRule.class, ObjectReaderCreator.INSTANCE.createObjectReader(FlowRule.class));
+        JSONFactory.getDefaultObjectReaderProvider().registerIfAbsent(SystemRule.class, ObjectReaderCreator.INSTANCE.createObjectReader(SystemRule.class));
+        JSONFactory.getDefaultObjectReaderProvider().registerIfAbsent(DegradeRule.class, ObjectReaderCreator.INSTANCE.createObjectReader(DegradeRule.class));
+        JSONFactory.getDefaultObjectReaderProvider().registerIfAbsent(AuthorityRule.class, ObjectReaderCreator.INSTANCE.createObjectReader(AuthorityRule.class));
+        JSONFactory.getDefaultObjectReaderProvider().registerIfAbsent(ParamFlowRule.class, ObjectReaderCreator.INSTANCE.createObjectReader(ParamFlowRule.class));
     }
 }

@@ -5,7 +5,7 @@
     <parent>
         <artifactId>sentinel-extension</artifactId>
         <groupId>com.alibaba.csp</groupId>
-        <version>1.8.4</version>
+        <version>1.8.4.B</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,9 +13,9 @@
     <packaging>jar</packaging>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <jetcd.version>0.3.0</jetcd.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <jetcd.version>0.7.3</jetcd.version>
     </properties>
 
     <dependencies>
@@ -38,8 +38,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -50,6 +50,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.version}</version>
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>

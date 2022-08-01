@@ -6,7 +6,7 @@
     <parent>
         <artifactId>sentinel-demo</artifactId>
         <groupId>com.alibaba.csp</groupId>
-        <version>1.8.4</version>
+        <version>1.8.4.B</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,14 +15,14 @@
     <properties>
         <compiler-plugin.version>3.8.1</compiler-plugin.version>
         <maven.compiler.parameters>true</maven.compiler.parameters>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <quarkus-plugin.version>1.4.1.Final</quarkus-plugin.version>
+        <quarkus-plugin.version>2.11.1.Final</quarkus-plugin.version>
         <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-        <quarkus.platform.version>1.4.1.Final</quarkus.platform.version>
+        <quarkus.platform.version>2.11.1.Final</quarkus.platform.version>
         <surefire-plugin.version>2.22.1</surefire-plugin.version>
     </properties>
 
@@ -115,12 +115,14 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${compiler-plugin.version}</version>
+                <version>${maven.compiler.version}</version>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${surefire-plugin.version}</version>
+                <version>${maven.surefire.version}</version>
                 <configuration>
                     <systemProperties>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>

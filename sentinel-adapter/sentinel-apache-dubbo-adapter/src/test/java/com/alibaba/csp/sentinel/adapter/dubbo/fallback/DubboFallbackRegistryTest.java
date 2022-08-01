@@ -21,10 +21,13 @@ import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
 
 import org.apache.dubbo.rpc.AsyncRpcResult;
 import org.apache.dubbo.rpc.Result;
+import org.apache.dubbo.rpc.RpcInvocation;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.mockito.Mockito.mock;
 
 /**
  * @author Eric Zhao
@@ -45,7 +48,7 @@ public class DubboFallbackRegistryTest {
     public void testDefaultFallback() {
         // Test for default fallback.
         BlockException ex = new FlowException("xxx");
-        Result result = new DefaultDubboFallback().handle(null, null, ex);
+        Result result = new DefaultDubboFallback().handle(null, mock(RpcInvocation.class), ex);
         Assert.assertTrue("The result should carry exception", result.hasException());
         Assert.assertTrue(BlockException.isBlockException(result.getException()));
         Assert.assertTrue(result.getException().getMessage().contains(ex.getClass().getSimpleName()));
@@ -58,7 +61,7 @@ public class DubboFallbackRegistryTest {
             (invoker, invocation, e) -> AsyncRpcResult
                 .newDefaultAsyncResult("Error: " + e.getClass().getName(), invocation));
         Result result = DubboAdapterGlobalConfig.getConsumerFallback()
-            .handle(null, null, ex);
+            .handle(null, mock(RpcInvocation.class), ex);
         Assert.assertFalse("The invocation should not fail", result.hasException());
         Assert.assertEquals("Error: " + ex.getClass().getName(), result.getValue());
     }

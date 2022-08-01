@@ -20,6 +20,7 @@ import org.apache.dubbo.common.URL;
 import org.apache.dubbo.common.constants.CommonConstants;
 import org.apache.dubbo.rpc.Invocation;
 import org.apache.dubbo.rpc.Invoker;
+import org.apache.dubbo.rpc.RpcInvocation;
 
 import java.lang.reflect.Method;
 
@@ -48,21 +49,21 @@ public class DubboTestUtil {
     }
 
     public static Invocation getMockInvocation(Method method) {
-        Invocation invocation = mock(Invocation.class);
+        Invocation invocation = mock(RpcInvocation.class);
         when(invocation.getMethodName()).thenReturn(method.getName());
         when(invocation.getParameterTypes()).thenReturn(method.getParameterTypes());
         return invocation;
     }
 
     public static Invocation getDefaultMockInvocationOne() {
-        Invocation invocation = mock(Invocation.class);
+        Invocation invocation = mock(RpcInvocation.class);
         when(invocation.getMethodName()).thenReturn(DEFAULT_TEST_METHOD_ONE.getName());
         when(invocation.getParameterTypes()).thenReturn(DEFAULT_TEST_METHOD_ONE.getParameterTypes());
         return invocation;
     }
 
     public static Invocation getDefaultMockInvocationTwo() {
-        Invocation invocation = mock(Invocation.class);
+        Invocation invocation = mock(RpcInvocation.class);
         when(invocation.getMethodName()).thenReturn(DEFAULT_TEST_METHOD_TWO.getName());
         when(invocation.getParameterTypes()).thenReturn(DEFAULT_TEST_METHOD_TWO.getParameterTypes());
         return invocation;

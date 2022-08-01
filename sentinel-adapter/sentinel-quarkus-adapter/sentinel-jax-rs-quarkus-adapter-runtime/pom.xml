@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.alibaba.csp</groupId>
         <artifactId>sentinel-quarkus-adapter-parent</artifactId>
-        <version>1.8.4</version>
+        <version>1.8.4.B</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,6 +17,16 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-core</artifactId>
+            <version>${quarkus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-arc</artifactId>
+            <version>${quarkus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-server-common</artifactId>
             <version>${quarkus.version}</version>
         </dependency>
         <dependency>
@@ -48,6 +58,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.version}</version>
                 <configuration>
                     <annotationProcessorPaths>
                         <path>

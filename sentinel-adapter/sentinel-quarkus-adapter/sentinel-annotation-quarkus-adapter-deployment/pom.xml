@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.alibaba.csp</groupId>
         <artifactId>sentinel-quarkus-adapter-parent</artifactId>
-        <version>1.8.4</version>
+        <version>1.8.4.B</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -14,18 +14,20 @@
     <name>sentinel-annotation-quarkus-adapter-deployment</name>
 
     <properties>
-        <java.source.version>1.8</java.source.version>
-        <java.target.version>1.8</java.target.version>
+        <java.source.version>11</java.source.version>
+        <java.target.version>11</java.target.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-core-deployment</artifactId>
+            <artifactId>quarkus-arc-deployment</artifactId>
+            <version>${quarkus.version}</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-arc-deployment</artifactId>
+            <artifactId>quarkus-agroal-deployment</artifactId>
+            <version>${quarkus.version}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba.csp</groupId>
@@ -44,10 +46,6 @@
             <artifactId>assertj-core</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-arc-deployment</artifactId>
-        </dependency>
 
     </dependencies>
 
@@ -56,6 +54,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.version}</version>
                 <configuration>
                     <annotationProcessorPaths>
                         <path>

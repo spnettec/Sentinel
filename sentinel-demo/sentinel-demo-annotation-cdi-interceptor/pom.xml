@@ -5,14 +5,14 @@
     <parent>
         <artifactId>sentinel-demo</artifactId>
         <groupId>com.alibaba.csp</groupId>
-        <version>1.8.4</version>
+        <version>1.8.4.B</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>sentinel-demo-annotation-cdi-interceptor</artifactId>
 
     <properties>
-        <weld-se-shaded.version>3.1.4.Final</weld-se-shaded.version>
+        <weld-se-shaded.version>5.0.0.Final</weld-se-shaded.version>
     </properties>
 
     <dependencies>

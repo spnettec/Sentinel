@@ -15,9 +15,6 @@
  */
 package com.alibaba.csp.sentinel.cluster.server.command.handler;
 
-import java.net.URLDecoder;
-import java.util.List;
-
 import com.alibaba.csp.sentinel.cluster.flow.rule.ClusterParamFlowRuleManager;
 import com.alibaba.csp.sentinel.command.CommandHandler;
 import com.alibaba.csp.sentinel.command.CommandRequest;
@@ -26,7 +23,10 @@ import com.alibaba.csp.sentinel.command.annotation.CommandMapping;
 import com.alibaba.csp.sentinel.log.RecordLog;
 import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowRule;
 import com.alibaba.csp.sentinel.util.StringUtil;
-import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson2.JSON;
+
+import java.net.URLDecoder;
+import java.util.List;
 
 /**
  * @author Eric Zhao
@@ -49,7 +49,7 @@ public class ModifyClusterParamFlowRulesCommandHandler implements CommandHandler
             data = URLDecoder.decode(data, "UTF-8");
             RecordLog.info("Receiving cluster param rules for namespace <{}> from command handler: {}", namespace, data);
 
-            List<ParamFlowRule> flowRules = JSONArray.parseArray(data, ParamFlowRule.class);
+            List<ParamFlowRule> flowRules = JSON.parseArray(data, ParamFlowRule.class);
             ClusterParamFlowRuleManager.loadRules(namespace, flowRules);
 
             return CommandResponse.ofSuccess(SUCCESS);

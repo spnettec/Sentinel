@@ -5,14 +5,14 @@
     <parent>
         <groupId>com.alibaba.csp</groupId>
         <artifactId>sentinel-transport</artifactId>
-        <version>1.8.4</version>
+        <version>1.8.4.B</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>sentinel-transport-netty-http</artifactId>
     <packaging>jar</packaging>
 
     <properties>
-        <netty.version>4.1.31.Final</netty.version>
+        <netty.version>4.1.79.Final</netty.version>
     </properties>
 
     <dependencies>
@@ -27,14 +27,14 @@
             <version>${netty.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.3</version>
+            <version>4.5.13</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

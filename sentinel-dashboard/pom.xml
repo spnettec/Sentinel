@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.alibaba.csp</groupId>
         <artifactId>sentinel-parent</artifactId>
-        <version>1.8.4</version>
+        <version>1.8.4.B</version>
     </parent>
 
     <artifactId>sentinel-dashboard</artifactId>
@@ -14,8 +14,8 @@
 
     <properties>
         <resource.delimiter>@</resource.delimiter>
-        <spring.boot.version>2.5.12</spring.boot.version>
-        <curator.version>4.0.1</curator.version>
+        <spring.boot.version>2.7.2</spring.boot.version>
+        <curator.version>5.3.0</curator.version>
     </properties>
 
     <dependencies>
@@ -61,9 +61,9 @@
         </dependency>
 
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.18.0</version>
         </dependency>
 
         <dependency>
@@ -80,21 +80,21 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
-            <version>4.4.5</version>
+            <version>4.4.15</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpasyncclient</artifactId>
-            <version>4.1.3</version>
+            <version>4.1.5</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore-nio</artifactId>
-            <version>4.4.6</version>
+            <version>4.4.15</version>
         </dependency>
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
         </dependency>
 
         <!-- for Nacos rule publisher sample -->
@@ -107,7 +107,7 @@
         <dependency>
             <groupId>com.ctrip.framework.apollo</groupId>
             <artifactId>apollo-openapi</artifactId>
-            <version>1.2.0</version>
+            <version>2.0.1</version>
             <scope>test</scope>
         </dependency>
 

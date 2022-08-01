@@ -21,6 +21,7 @@ import org.apache.dubbo.common.URL;
 import org.apache.dubbo.rpc.Invocation;
 import org.apache.dubbo.rpc.Invoker;
 import org.apache.dubbo.rpc.RpcContext;
+import org.apache.dubbo.rpc.RpcInvocation;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,7 +49,7 @@ public class DubboAppContextFilterTest extends BaseTest {
     @Test
     public void testInvokeApplicationKey() {
         Invoker invoker = mock(Invoker.class);
-        Invocation invocation = mock(Invocation.class);
+        Invocation invocation = mock(RpcInvocation.class);
         URL url = URL.valueOf("test://test:111/test?application=serviceA");
         when(invoker.getUrl()).thenReturn(url);
 
@@ -62,7 +63,7 @@ public class DubboAppContextFilterTest extends BaseTest {
     @Test
     public void testInvokeNullApplicationKey() {
         Invoker invoker = mock(Invoker.class);
-        Invocation invocation = mock(Invocation.class);
+        Invocation invocation = mock(RpcInvocation.class);
         URL url = URL.valueOf("test://test:111/test?application=");
         when(invoker.getUrl()).thenReturn(url);
 
@@ -70,6 +71,6 @@ public class DubboAppContextFilterTest extends BaseTest {
         verify(invoker).invoke(invocation);
 
         String application = RpcContext.getContext().getAttachment(DubboUtils.SENTINEL_DUBBO_APPLICATION_KEY);
-        assertEquals(application, "");
+        assertEquals(application, "application");
     }
 }

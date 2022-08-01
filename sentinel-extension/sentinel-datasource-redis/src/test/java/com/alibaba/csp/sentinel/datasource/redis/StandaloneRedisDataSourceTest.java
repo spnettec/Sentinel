@@ -16,19 +16,21 @@
 
 package com.alibaba.csp.sentinel.datasource.redis;
 
-import ai.grakn.redismock.RedisServer;
 
 import com.alibaba.csp.sentinel.datasource.Converter;
 import com.alibaba.csp.sentinel.datasource.ReadableDataSource;
 import com.alibaba.csp.sentinel.datasource.redis.config.RedisConnectionConfig;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.TypeReference;
 
+import com.github.fppt.jedismock.RedisServer;
+import io.lettuce.core.ClientOptions;
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.sync.RedisCommands;
+import io.lettuce.core.protocol.ProtocolVersion;
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection;
 import io.lettuce.core.pubsub.api.sync.RedisPubSubCommands;
 import org.hamcrest.Matchers;
@@ -132,7 +134,7 @@ public class StandaloneRedisDataSourceTest {
     }
 
     @After
-    public void clearResource() {
+    public void clearResource() throws IOException {
         RedisCommands<String, String> stringRedisCommands = client.connect().sync();
         stringRedisCommands.del(ruleKey);
         client.shutdown();

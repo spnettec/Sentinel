@@ -5,7 +5,7 @@
     <parent>
         <artifactId>sentinel-demo</artifactId>
         <groupId>com.alibaba.csp</groupId>
-        <version>1.8.4</version>
+        <version>1.8.4.B</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -46,7 +46,7 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.8</version>
+            <version>4.5.13</version>
         </dependency>
     </dependencies>
 

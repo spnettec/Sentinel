@@ -5,14 +5,14 @@
     <parent>
         <artifactId>sentinel-demo</artifactId>
         <groupId>com.alibaba.csp</groupId>
-        <version>1.8.4</version>
+        <version>1.8.4.B</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>sentinel-demo-jax-rs</artifactId>
 
     <properties>
-        <spring.boot.version>2.5.12</spring.boot.version>
+        <spring.boot.version>2.7.2</spring.boot.version>
     </properties>
 
     <dependencies>
@@ -32,7 +32,7 @@
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-spring-boot-starter</artifactId>
-            <version>4.5.1.Final</version>
+            <version>5.0.0.Final</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

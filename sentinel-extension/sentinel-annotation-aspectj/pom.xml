@@ -5,7 +5,7 @@
     <parent>
         <artifactId>sentinel-extension</artifactId>
         <groupId>com.alibaba.csp</groupId>
-        <version>1.8.4</version>
+        <version>1.8.4.B</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,9 +13,8 @@
     <packaging>jar</packaging>
 
     <properties>
-        <aspectj.version>1.9.2</aspectj.version>
-
-        <spring.test.version>5.1.5.RELEASE</spring.test.version>
+        <aspectj.version>1.9.9.1</aspectj.version>
+        <spring.version>5.3.22</spring.version>
     </properties>
 
     <dependencies>
@@ -48,19 +47,19 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>${spring.test.version}</version>
+            <version>${spring.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
-            <version>${spring.test.version}</version>
+            <version>${spring.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>${spring.test.version}</version>
+            <version>${spring.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
