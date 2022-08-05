@@ -15,7 +15,8 @@
     <properties>
         <java.source.version>11</java.source.version>
         <java.target.version>11</java.target.version>
-        <zuul.version>2.1.5</zuul.version>
+        <zuul.version>2.3.0</zuul.version>
+        <spring.version>5.3.22</spring.version>
     </properties>
 
     <dependencies>
@@ -38,6 +39,14 @@
                     <groupId>org.mockito</groupId>
                     <artifactId>mockito-core</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-databind</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
 
@@ -45,7 +54,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>5.1.18.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
 
         <dependency>

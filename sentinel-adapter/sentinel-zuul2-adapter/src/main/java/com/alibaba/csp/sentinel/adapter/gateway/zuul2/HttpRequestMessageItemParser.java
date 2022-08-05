@@ -36,7 +36,7 @@ public class HttpRequestMessageItemParser implements RequestItemParser<HttpReque
 
     @Override
     public String getHeader(HttpRequestMessage request, String key) {
-        return String.valueOf(request.getInboundRequest().getHeaders().get(key));
+        return String.valueOf(request.getInboundRequest().getHeaders().getFirst(key));
     }
 
     @Override

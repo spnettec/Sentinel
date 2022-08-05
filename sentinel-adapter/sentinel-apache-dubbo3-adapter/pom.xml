@@ -16,6 +16,7 @@
         <java.source.version>11</java.source.version>
         <java.target.version>11</java.target.version>
         <apache.dubbo.version>3.0.10</apache.dubbo.version>
+        <netty.version>4.1.79.Final</netty.version>
     </properties>
 
     <dependencies>
@@ -27,9 +28,22 @@
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo</artifactId>
             <version>${apache.dubbo.version}</version>
-            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.netty</groupId>
+                    <artifactId>netty-all</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

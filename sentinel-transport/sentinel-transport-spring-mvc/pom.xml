@@ -13,7 +13,7 @@
 
     <properties>
         <apache.httpclient.version>4.5.13</apache.httpclient.version>
-        <servlet.api.version>3.1.0</servlet.api.version>
+        <servlet.api.version>4.0.1</servlet.api.version>
         <spring.version>5.3.22</spring.version>
     </properties>
 
