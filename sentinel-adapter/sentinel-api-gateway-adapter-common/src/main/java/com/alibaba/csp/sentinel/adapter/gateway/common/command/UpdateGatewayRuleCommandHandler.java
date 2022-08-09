@@ -28,6 +28,7 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.TypeReference;
 
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Set;
 
 /**
@@ -45,7 +46,7 @@ public class UpdateGatewayRuleCommandHandler implements CommandHandler<String> {
             return CommandResponse.ofFailure(new IllegalArgumentException("Bad data"));
         }
         try {
-            data = URLDecoder.decode(data, "utf-8");
+            data = URLDecoder.decode(data, StandardCharsets.UTF_8);
         } catch (Exception e) {
             RecordLog.info("Decode gateway rule data error", e);
             return CommandResponse.ofFailure(e, "decode gateway rule data error");
