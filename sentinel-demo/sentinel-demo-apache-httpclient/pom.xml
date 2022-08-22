@@ -12,7 +12,7 @@
     <artifactId>sentinel-demo-apache-httpclient</artifactId>
 
     <properties>
-        <spring.boot.version>2.7.2</spring.boot.version>
+        <spring.boot.version>2.7.3</spring.boot.version>
         <apache.httpclient.version>4.5.13</apache.httpclient.version>
     </properties>
 
