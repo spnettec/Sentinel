@@ -34,6 +34,7 @@ import com.alibaba.csp.sentinel.util.VersionUtil;
 import com.alibaba.fastjson2.JSON;
 
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static com.alibaba.csp.sentinel.transport.util.WritableDataSourceRegistry.*;
@@ -60,7 +61,7 @@ public class ModifyRulesCommandHandler implements CommandHandler<String> {
         String data = request.getParam("data");
         if (StringUtil.isNotEmpty(data)) {
             try {
-                data = URLDecoder.decode(data, "utf-8");
+                data = URLDecoder.decode(data, StandardCharsets.UTF_8);
             } catch (Exception e) {
                 RecordLog.info("Decode rule data error", e);
                 return CommandResponse.ofFailure(e, "decode rule data error");

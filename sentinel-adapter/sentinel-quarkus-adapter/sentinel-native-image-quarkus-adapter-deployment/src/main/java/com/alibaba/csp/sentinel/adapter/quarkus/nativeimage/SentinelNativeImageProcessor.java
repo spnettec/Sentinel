@@ -43,9 +43,6 @@ class SentinelNativeImageProcessor {
     @BuildStep(onlyIf = NativeBuild.class)
     List<RuntimeInitializedClassBuildItem> runtimeInitializedClasses() {
         return Arrays.asList(
-                new RuntimeInitializedClassBuildItem("com.alibaba.fastjson.serializer.JodaCodec"),
-                new RuntimeInitializedClassBuildItem("com.alibaba.fastjson.serializer.GuavaCodec"),
-                new RuntimeInitializedClassBuildItem("com.alibaba.fastjson.support.moneta.MonetaCodec"),
                 new RuntimeInitializedClassBuildItem("com.alibaba.csp.sentinel.Env"),
                 new RuntimeInitializedClassBuildItem("com.alibaba.csp.sentinel.init.InitExecutor"),
                 new RuntimeInitializedClassBuildItem("com.alibaba.csp.sentinel.cluster.ClusterStateManager"),
