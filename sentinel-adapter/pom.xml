@@ -16,8 +16,6 @@
 
     <modules>
         <module>sentinel-web-servlet</module>
-        <module>sentinel-dubbo-adapter</module>
-        <module>sentinel-apache-dubbo-adapter</module>
         <module>sentinel-apache-dubbo3-adapter</module>
         <module>sentinel-apache-httpclient-adapter</module>
         <module>sentinel-grpc-adapter</module>
@@ -30,7 +28,6 @@
         <module>sentinel-okhttp-adapter</module>
         <module>sentinel-jax-rs-adapter</module>
         <module>sentinel-quarkus-adapter</module>
-        <module>sentinel-motan-adapter</module>
     </modules>
 
     <dependencyManagement>
