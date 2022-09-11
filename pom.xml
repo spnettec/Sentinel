@@ -41,7 +41,7 @@
 
     <properties>
         <!-- Compile libs -->
-        <fastjson2.version>2.0.12</fastjson2.version>
+        <fastjson2.version>2.0.13</fastjson2.version>
         <javax.annotation-api.version>1.3.2</javax.annotation-api.version>
 
         <!-- Test libs -->
@@ -223,7 +223,7 @@
     <repositories>
         <repository>
             <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
+            <url>https://www.jitpack.io</url>
         </repository>
         <repository>
             <id>central-repos1</id>
