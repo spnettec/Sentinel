@@ -5,7 +5,7 @@
     <parent>
         <artifactId>sentinel-extension</artifactId>
         <groupId>com.alibaba.csp</groupId>
-        <version>1.8.5.B</version>
+        <version>1.8.6.B</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -16,7 +16,7 @@
         <java.source.version>11</java.source.version>
         <java.target.version>11</java.target.version>
         <lettuce.version>6.2.0.RELEASE</lettuce.version>
-        <jedis-mock.version>1.0.3</jedis-mock.version>
+        <redis.mock.version>0.1.6</redis.mock.version>
     </properties>
 
     <dependencies>
@@ -47,9 +47,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.fppt</groupId>
-            <artifactId>jedis-mock</artifactId>
-            <version>${jedis-mock.version}</version>
+            <groupId>ai.grakn</groupId>
+            <artifactId>redis-mock</artifactId>
+            <version>${redis.mock.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.alibaba.csp</groupId>
         <artifactId>sentinel-adapter</artifactId>
-        <version>1.8.5.B</version>
+        <version>1.8.6.B</version>
     </parent>
 
     <artifactId>sentinel-jax-rs-adapter</artifactId>
@@ -80,7 +80,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven.surefire.version}</version>
                 <configuration>
                     <forkMode>always</forkMode>
                 </configuration>

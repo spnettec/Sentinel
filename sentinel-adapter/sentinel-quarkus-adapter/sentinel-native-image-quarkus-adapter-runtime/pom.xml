@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.alibaba.csp</groupId>
         <artifactId>sentinel-quarkus-adapter-parent</artifactId>
-        <version>1.8.5.B</version>
+        <version>1.8.6.B</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -65,7 +65,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.version}</version>
                 <configuration>
                     <annotationProcessorPaths>
                         <path>

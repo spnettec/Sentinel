@@ -5,7 +5,7 @@
     <parent>
         <artifactId>sentinel-extension</artifactId>
         <groupId>com.alibaba.csp</groupId>
-        <version>1.8.5.B</version>
+        <version>1.8.6.B</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -50,7 +50,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.version}</version>
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
