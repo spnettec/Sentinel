@@ -5,7 +5,7 @@
     <parent>
         <artifactId>sentinel-adapter</artifactId>
         <groupId>com.alibaba.csp</groupId>
-        <version>1.8.6.B</version>
+        <version>2.0.0.B</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -14,8 +14,8 @@
 
     <properties>
         <okhttp.version>4.10.0</okhttp.version>
-        <spring.boot.version>2.7.4</spring.boot.version>
-        <spring.version>5.3.23</spring.version>
+        <spring.boot.version>2.7.5</spring.boot.version>
+        <spring.version>5.3.24</spring.version>
     </properties>
 
     <dependencies>
