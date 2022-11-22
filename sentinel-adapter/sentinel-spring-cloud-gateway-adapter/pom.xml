@@ -15,7 +15,7 @@
     <properties>
         <java.source.version>11</java.source.version>
         <java.target.version>11</java.target.version>
-        <spring.cloud.gateway.version>3.1.5</spring.cloud.gateway.version>
+        <spring.cloud.gateway.version>3.1.4</spring.cloud.gateway.version>
         <spring.boot.version>2.7.5</spring.boot.version>
         <spring.version>5.3.24</spring.version>
     </properties>
@@ -32,7 +32,7 @@
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-gateway-core</artifactId>
+            <artifactId>spring-cloud-gateway-server</artifactId>
             <version>${spring.cloud.gateway.version}</version>
             <scope>provided</scope>
             <exclusions>
