@@ -14,7 +14,7 @@
 
     <properties>
         <servlet.api.version>4.0.1</servlet.api.version>
-        <spring.boot.version>2.7.5</spring.boot.version>
+        <spring.boot.version>2.7.6</spring.boot.version>
     </properties>
 
     <dependencies>

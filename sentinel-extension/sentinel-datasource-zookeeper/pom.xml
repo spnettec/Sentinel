@@ -14,7 +14,7 @@
 
     <properties>
         <zookeeper.version>3.8.0</zookeeper.version>
-        <curator.version>5.2.1</curator.version>
+        <curator.version>5.3.0</curator.version>
         <curator.test.version>5.3.0</curator.test.version>
     </properties>
 
