@@ -80,7 +80,7 @@ public final class TimeUtil implements Runnable {
     }
 
     public TimeUtil() {
-        this.statistics = new LeapArray<TimeUtil.Statistic>(3, 3000) {
+        this.statistics = new LeapArray<>(3, 3000) {
 
             @Override
             public Statistic newEmptyBucket(long timeMillis) {

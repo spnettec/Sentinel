@@ -36,7 +36,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.util.SocketUtils;
+import org.springframework.test.util.TestSocketUtils;
 
 import javax.ws.rs.ProcessingException;
 import javax.ws.rs.client.Client;
@@ -73,7 +73,7 @@ public class ClientFilterTest {
                 .readTimeout(3, TimeUnit.SECONDS)
                 .build();
 
-        port = SocketUtils.findAvailableTcpPort();
+        port = TestSocketUtils.findAvailableTcpPort();
         host = "http://127.0.0.1:" + port;
         SpringApplication springApplication = new SpringApplication(TestApplication.class);
         ctx = springApplication.run("--spring.profiles.active=client", "--server.port=" + port);

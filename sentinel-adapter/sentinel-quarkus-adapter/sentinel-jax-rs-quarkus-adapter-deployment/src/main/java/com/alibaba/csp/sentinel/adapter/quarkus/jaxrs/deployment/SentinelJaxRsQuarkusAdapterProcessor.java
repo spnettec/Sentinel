@@ -25,7 +25,6 @@ import org.jboss.logging.Logger;
  */
 class SentinelJaxRsQuarkusAdapterProcessor {
 
-    private static final Logger logger = Logger.getLogger(SentinelJaxRsQuarkusAdapterProcessor.class);
 
     private static final String FEATURE_JAX_RS = "sentinel-jax-rs";
 

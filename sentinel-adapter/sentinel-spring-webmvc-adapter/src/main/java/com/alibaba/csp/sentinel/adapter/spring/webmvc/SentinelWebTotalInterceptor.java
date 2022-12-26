@@ -17,7 +17,7 @@ package com.alibaba.csp.sentinel.adapter.spring.webmvc;
 
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.config.SentinelWebMvcTotalConfig;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * The web interceptor for all requests, which will unify all URL as

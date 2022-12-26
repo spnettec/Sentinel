@@ -41,7 +41,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.util.SocketUtils;
+import org.springframework.test.util.TestSocketUtils;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.MediaType;
@@ -62,7 +62,7 @@ public class ProviderFilterTest {
     @BeforeClass
     public static void startApplication() {
         RestAssured.basePath = "";
-        int port = SocketUtils.findAvailableTcpPort();
+        int port = TestSocketUtils.findAvailableTcpPort();
         RestAssured.port = port;
         SpringApplication springApplication = new SpringApplication(TestApplication.class);
         ctx = springApplication.run("--spring.profiles.active=provider", "--server.port=" + port);

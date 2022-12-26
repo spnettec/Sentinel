@@ -18,7 +18,7 @@ package com.alibaba.csp.sentinel.adapter.spring.webmvc;
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.config.SentinelWebMvcConfig;
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.UrlCleaner;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import com.alibaba.csp.sentinel.util.StringUtil;
 import org.springframework.web.servlet.HandlerMapping;
