@@ -18,6 +18,8 @@ package com.alibaba.csp.sentinel.dashboard.auth;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import java.io.Serializable;
+
 /**
  * @author cdfive
  * @since 1.6.0
@@ -37,7 +39,7 @@ public class SimpleWebAuthServiceImpl implements AuthService<HttpServletRequest>
         return null;
     }
 
-    public static final class SimpleWebAuthUserImpl implements AuthUser {
+    public static final class SimpleWebAuthUserImpl implements AuthUser, Serializable {
 
         private String username;
 
