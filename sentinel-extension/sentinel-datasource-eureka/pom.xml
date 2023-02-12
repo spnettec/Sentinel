@@ -12,8 +12,8 @@
     <artifactId>sentinel-datasource-eureka</artifactId>
 
     <properties>
-        <spring-boot.version>3.0.1</spring-boot.version>
-        <spring.cloud.version>4.0.0</spring.cloud.version>
+        <spring-boot.version>3.0.2</spring-boot.version>
+        <spring.cloud.eureka.version>4.0.0</spring.cloud.eureka.version>
     </properties>
 
 
@@ -50,7 +50,7 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-            <version>${spring.cloud.version}</version>
+            <version>${spring.cloud.eureka.version}</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -66,7 +66,7 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-netflix-eureka-server</artifactId>
-            <version>${spring.cloud.version}</version>
+            <version>${spring.cloud.eureka.version}</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>

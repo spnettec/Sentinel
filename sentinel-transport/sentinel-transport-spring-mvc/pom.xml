@@ -12,9 +12,9 @@
     <artifactId>sentinel-transport-spring-mvc</artifactId>
 
     <properties>
-        <apache.httpclient.version>4.5.13</apache.httpclient.version>
+        <apache.httpclient.version>4.5.14</apache.httpclient.version>
         <servlet.api.version>6.0.0</servlet.api.version>
-        <spring.version>6.0.3</spring.version>
+        <spring.version>6.0.4</spring.version>
     </properties>
 
     <dependencies>
