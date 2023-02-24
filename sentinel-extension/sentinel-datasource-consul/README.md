@@ -9,7 +9,7 @@ To use Sentinel DataSource Consul, you could add the following dependency:
 
 ```xml
 <dependency>
-    <groupId>com.alibaba.csp</groupId>
+   <groupId>com.github.heyoulin.Sentinel</groupId>
     <artifactId>sentinel-datasource-consul</artifactId>
     <version>x.y.z</version>
 </dependency>

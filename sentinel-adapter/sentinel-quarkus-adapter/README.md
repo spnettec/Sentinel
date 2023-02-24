@@ -10,7 +10,7 @@ To use sentinel-jax-rs-quarkus-adapter, you can simply add the following depende
 
 ```xml
 <dependency>
-    <groupId>com.alibaba.csp</groupId>
+   <groupId>com.github.heyoulin.Sentinel</groupId>
     <artifactId>sentinel-jax-rs-quarkus-adapter</artifactId>
     <version>x.y.z</version>
 </dependency>
@@ -20,7 +20,7 @@ To use sentinel-annotation-quarkus-adapter, you can simply add the following dep
 
 ```xml
 <dependency>
-    <groupId>com.alibaba.csp</groupId>
+   <groupId>com.github.heyoulin.Sentinel</groupId>
     <artifactId>sentinel-annotation-quarkus-adapter</artifactId>
     <version>x.y.z</version>
 </dependency>
@@ -39,7 +39,7 @@ you should add the following dependency to your `pom.xml`:
 
 ```xml
 <dependency>
-    <groupId>com.alibaba.csp</groupId>
+   <groupId>com.github.heyoulin.Sentinel</groupId>
     <artifactId>sentinel-native-image-quarkus-adapter</artifactId>
     <version>x.y.z</version>
 </dependency>

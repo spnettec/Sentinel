@@ -9,7 +9,7 @@ To use Sentinel OpenSergo data-source, you'll need to add the following Maven de
 
 ```xml
 <dependency>
-    <groupId>com.alibaba.csp</groupId>
+   <groupId>com.github.heyoulin.Sentinel</groupId>
     <artifactId>sentinel-datasource-opensergo</artifactId>
     <version>x.y.z</version>
 </dependency>

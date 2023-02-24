@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.alibaba.csp</groupId>
+       <groupId>com.github.heyoulin.Sentinel</groupId>
         <artifactId>sentinel-parent</artifactId>
         <version>2.0.2.B</version>
     </parent>
@@ -33,27 +33,27 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.alibaba.csp</groupId>
+               <groupId>com.github.heyoulin.Sentinel</groupId>
                 <artifactId>sentinel-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.alibaba.csp</groupId>
+               <groupId>com.github.heyoulin.Sentinel</groupId>
                 <artifactId>sentinel-extension</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.alibaba.csp</groupId>
+               <groupId>com.github.heyoulin.Sentinel</groupId>
                 <artifactId>sentinel-web-servlet</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.alibaba.csp</groupId>
+               <groupId>com.github.heyoulin.Sentinel</groupId>
                 <artifactId>sentinel-reactor-adapter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.alibaba.csp</groupId>
+               <groupId>com.github.heyoulin.Sentinel</groupId>
                 <artifactId>sentinel-api-gateway-adapter-common</artifactId>
                 <version>${project.version}</version>
             </dependency>

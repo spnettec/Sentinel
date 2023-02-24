@@ -63,7 +63,7 @@ If you're using Maven, just add the following dependency in `pom.xml`.
 ```xml
 <!-- replace here with the latest version -->
 <dependency>
-    <groupId>com.alibaba.csp</groupId>
+   <groupId>com.github.heyoulin.Sentinel</groupId>
     <artifactId>sentinel-core</artifactId>
     <version>2.0.2.B</version>
 </dependency>

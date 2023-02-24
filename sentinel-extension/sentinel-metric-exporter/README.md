@@ -6,7 +6,7 @@ To use Sentinel Metric Exporter, you should add the following dependency:
 
 ```xml
 <dependency>
-    <groupId>com.alibaba.csp</groupId>
+   <groupId>com.github.heyoulin.Sentinel</groupId>
     <artifactId>sentinel-metric-exporter</artifactId>
     <version>x.y.z</version>
 </dependency>

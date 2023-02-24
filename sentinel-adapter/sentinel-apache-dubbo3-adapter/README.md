@@ -13,7 +13,7 @@ To use Sentinel Dubbo 3.x Adapter, you can simply add the following dependency t
 
 ```xml
 <dependency>
-    <groupId>com.alibaba.csp</groupId>
+   <groupId>com.github.heyoulin.Sentinel</groupId>
     <artifactId>sentinel-apache-dubbo3-adapter</artifactId>
     <version>x.y.z</version>
 </dependency>

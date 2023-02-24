@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
     <parent>
-        <groupId>com.alibaba.csp</groupId>
+       <groupId>com.github.heyoulin.Sentinel</groupId>
         <artifactId>sentinel-parent</artifactId>
         <version>2.0.2.B</version>
     </parent>

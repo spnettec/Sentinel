@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.alibaba.csp</groupId>
+       <groupId>com.github.heyoulin.Sentinel</groupId>
         <artifactId>sentinel-adapter</artifactId>
         <version>2.0.2.B</version>
     </parent>
@@ -19,7 +19,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.alibaba.csp</groupId>
+           <groupId>com.github.heyoulin.Sentinel</groupId>
             <artifactId>sentinel-core</artifactId>
         </dependency>
 

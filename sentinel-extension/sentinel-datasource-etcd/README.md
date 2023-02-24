@@ -7,7 +7,7 @@ To use Sentinel DataSource Etcd, you should add the following dependency:
 
 ```xml
 <dependency>
-    <groupId>com.alibaba.csp</groupId>
+   <groupId>com.github.heyoulin.Sentinel</groupId>
     <artifactId>sentinel-datasource-etcd</artifactId>
     <version>x.y.z</version>
 </dependency>

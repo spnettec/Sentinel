@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>sentinel-adapter</artifactId>
-        <groupId>com.alibaba.csp</groupId>
+       <groupId>com.github.heyoulin.Sentinel</groupId>
         <version>2.0.2.B</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -16,17 +16,17 @@
         <java.source.version>17</java.source.version>
         <java.target.version>17</java.target.version>
         <spring.cloud.gateway.version>4.0.1</spring.cloud.gateway.version>
-        <spring.boot.version>3.0.2</spring.boot.version>
-        <spring.version>6.0.4</spring.version>
+        <spring.boot.version>3.0.3</spring.boot.version>
+        <spring.version>6.0.5</spring.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.alibaba.csp</groupId>
+           <groupId>com.github.heyoulin.Sentinel</groupId>
             <artifactId>sentinel-api-gateway-adapter-common</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.alibaba.csp</groupId>
+           <groupId>com.github.heyoulin.Sentinel</groupId>
             <artifactId>sentinel-reactor-adapter</artifactId>
         </dependency>
 

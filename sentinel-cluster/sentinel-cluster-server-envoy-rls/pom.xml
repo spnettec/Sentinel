@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>sentinel-cluster</artifactId>
-        <groupId>com.alibaba.csp</groupId>
+       <groupId>com.github.heyoulin.Sentinel</groupId>
         <version>2.0.2.B</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -23,16 +23,16 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.alibaba.csp</groupId>
+           <groupId>com.github.heyoulin.Sentinel</groupId>
             <artifactId>sentinel-cluster-server-default</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.alibaba.csp</groupId>
+           <groupId>com.github.heyoulin.Sentinel</groupId>
             <artifactId>sentinel-datasource-extension</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.alibaba.csp</groupId>
+           <groupId>com.github.heyoulin.Sentinel</groupId>
             <artifactId>sentinel-transport-simple-http</artifactId>
         </dependency>
         <dependency>

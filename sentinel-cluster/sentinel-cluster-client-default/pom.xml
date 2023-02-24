@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>sentinel-cluster</artifactId>
-        <groupId>com.alibaba.csp</groupId>
+       <groupId>com.github.heyoulin.Sentinel</groupId>
         <version>2.0.2.B</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -14,16 +14,16 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.alibaba.csp</groupId>
+           <groupId>com.github.heyoulin.Sentinel</groupId>
             <artifactId>sentinel-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.alibaba.csp</groupId>
+           <groupId>com.github.heyoulin.Sentinel</groupId>
             <artifactId>sentinel-transport-common</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.alibaba.csp</groupId>
+           <groupId>com.github.heyoulin.Sentinel</groupId>
             <artifactId>sentinel-cluster-common-default</artifactId>
         </dependency>
 
@@ -33,12 +33,12 @@
         </dependency>
 
         <dependency>
-            <groupId>com.alibaba.csp</groupId>
+           <groupId>com.github.heyoulin.Sentinel</groupId>
             <artifactId>sentinel-datasource-nacos</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.alibaba.csp</groupId>
+           <groupId>com.github.heyoulin.Sentinel</groupId>
             <artifactId>sentinel-parameter-flow-control</artifactId>
             <scope>test</scope>
         </dependency>

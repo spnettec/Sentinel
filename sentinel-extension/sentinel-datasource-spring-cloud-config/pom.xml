@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>sentinel-extension</artifactId>
-        <groupId>com.alibaba.csp</groupId>
+       <groupId>com.github.heyoulin.Sentinel</groupId>
         <version>2.0.2.B</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -13,15 +13,15 @@
     <packaging>jar</packaging>
 
     <properties>
-        <spring-boot.version>3.0.2</spring-boot.version>
+        <spring-boot.version>3.0.3</spring-boot.version>
         <spring.cloud.version>4.0.1</spring.cloud.version>
-        <spring.version>6.0.4</spring.version>
+        <spring.version>6.0.5</spring.version>
     </properties>
 
     <dependencies>
 
         <dependency>
-            <groupId>com.alibaba.csp</groupId>
+           <groupId>com.github.heyoulin.Sentinel</groupId>
             <artifactId>sentinel-datasource-extension</artifactId>
         </dependency>
 
