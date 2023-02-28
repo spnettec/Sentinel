@@ -159,7 +159,6 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring.boot.version}</version>
                 <configuration>
-                    <fork>true</fork>
                     <mainClass>com.alibaba.csp.sentinel.dashboard.DashboardApplication</mainClass>
                 </configuration>
                 <executions>
