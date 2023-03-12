@@ -5,7 +5,7 @@
     <parent>
         <artifactId>sentinel-logging</artifactId>
        <groupId>com.github.heyoulin.Sentinel</groupId>
-        <version>2.0.2.B</version>
+        <version>2.0.3.B</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,7 +13,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <slf4j.version>2.0.5</slf4j.version>
+        <slf4j.version>2.0.6</slf4j.version>
     </properties>
 
     <dependencies>

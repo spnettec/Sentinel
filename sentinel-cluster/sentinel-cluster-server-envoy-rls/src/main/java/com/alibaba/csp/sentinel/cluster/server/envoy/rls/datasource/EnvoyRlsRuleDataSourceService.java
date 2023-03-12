@@ -27,6 +27,7 @@ import com.alibaba.csp.sentinel.datasource.FileRefreshableDataSource;
 import com.alibaba.csp.sentinel.datasource.ReadableDataSource;
 import com.alibaba.csp.sentinel.util.StringUtil;
 
+import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.representer.Representer;
 
@@ -44,7 +45,7 @@ public class EnvoyRlsRuleDataSourceService {
     }
 
     private Yaml createYamlParser() {
-        Representer representer = new Representer();
+        Representer representer = new Representer(new DumperOptions());
         representer.getPropertyUtils().setSkipMissingProperties(true);
         return new Yaml(representer);
     }

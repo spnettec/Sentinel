@@ -5,7 +5,7 @@
     <parent>
         <artifactId>sentinel-adapter</artifactId>
        <groupId>com.github.heyoulin.Sentinel</groupId>
-        <version>2.0.2.B</version>
+        <version>2.0.3.B</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -14,7 +14,7 @@
     <properties>
         <java.source.version>17</java.source.version>
         <java.target.version>17</java.target.version>
-        <reactor.version>3.4.24</reactor.version>
+        <reactor.version>3.5.3</reactor.version>
     </properties>
 
     <dependencies>
