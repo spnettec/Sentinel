@@ -14,8 +14,8 @@
 
     <properties>
         <okhttp.version>4.10.0</okhttp.version>
-        <spring.boot.version>3.0.4</spring.boot.version>
-        <spring.version>6.0.6</spring.version>
+        <spring.boot.version>3.0.5</spring.boot.version>
+        <spring.version>6.0.7</spring.version>
     </properties>
 
     <dependencies>
