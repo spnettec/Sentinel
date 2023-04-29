@@ -15,9 +15,9 @@
     <properties>
         <java.source.version>17</java.source.version>
         <java.target.version>17</java.target.version>
-        <spring.cloud.gateway.version>4.0.2</spring.cloud.gateway.version>
-        <spring.boot.version>3.0.5</spring.boot.version>
-        <spring.version>6.0.7</spring.version>
+        <spring.cloud.gateway.version>4.0.4</spring.cloud.gateway.version>
+        <spring.boot.version>3.0.6</spring.boot.version>
+        <spring.version>6.0.8</spring.version>
     </properties>
 
     <dependencies>
