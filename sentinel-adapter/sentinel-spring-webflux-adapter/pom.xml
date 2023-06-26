@@ -14,8 +14,8 @@
     <properties>
         <java.source.version>17</java.source.version>
         <java.target.version>17</java.target.version>
-        <spring.boot.version>3.1.0</spring.boot.version>
-        <spring.version>6.0.9</spring.version>
+        <spring.boot.version>3.1.1</spring.boot.version>
+        <spring.version>6.0.10</spring.version>
     </properties>
 
     <dependencies>
