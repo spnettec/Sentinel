@@ -16,7 +16,7 @@
         <java.source.version>17</java.source.version>
         <java.target.version>17</java.target.version>
         <zuul.version>2.3.0</zuul.version>
-        <spring.version>6.0.10</spring.version>
+        <spring.version>6.0.11</spring.version>
     </properties>
 
     <dependencies>
