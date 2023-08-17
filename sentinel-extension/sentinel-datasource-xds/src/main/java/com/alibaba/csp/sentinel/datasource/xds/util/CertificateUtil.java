@@ -18,10 +18,7 @@ package com.alibaba.csp.sentinel.datasource.xds.util;
 import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.PrivateKey;
-import java.security.SecureRandom;
+import java.security.*;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 import java.security.spec.ECGenParameterSpec;
@@ -31,6 +28,7 @@ import com.alibaba.csp.sentinel.datasource.xds.constant.type.AsymCryptoType;
 import com.alibaba.csp.sentinel.datasource.xds.expection.CertificateException;
 import com.alibaba.csp.sentinel.log.RecordLog;
 
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
 import org.bouncycastle.util.io.pem.PemObject;
 
@@ -47,7 +45,9 @@ public final class CertificateUtil {
     private static final String PEM_PRIVATE_START = "-----BEGIN PRIVATE KEY-----";
 
     private static final String PEM_PRIVATE_END = "-----END PRIVATE KEY-----";
-
+    static {
+        Security.addProvider(new BouncyCastleProvider());
+    }
     private CertificateUtil() {
 
     }
@@ -62,7 +62,7 @@ public final class CertificateUtil {
                     break;
                 case ECDSA:
                     ECGenParameterSpec ecSpec = new ECGenParameterSpec(asymCryptoType.getSubType());
-                    localKeyPairGenerator = KeyPairGenerator.getInstance("EC");
+                    localKeyPairGenerator = KeyPairGenerator.getInstance("EC", "BC");
                     localKeyPairGenerator.initialize(ecSpec, new SecureRandom());
                     break;
                 default:

@@ -69,6 +69,7 @@
 
     <modules>
         <module>sentinel-core</module>
+        <module>sentinel-security-core</module>
         <module>sentinel-extension</module>
         <module>sentinel-transport</module>
         <module>sentinel-adapter</module>
@@ -86,6 +87,11 @@
             <dependency>
                <groupId>com.github.heyoulin.Sentinel</groupId>
                 <artifactId>sentinel-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.heyoulin.Sentinel</groupId>
+                <artifactId>sentinel-security-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

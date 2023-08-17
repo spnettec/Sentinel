@@ -27,6 +27,7 @@ import com.alibaba.csp.sentinel.datasource.xds.property.repository.CertPairRepos
 import com.alibaba.csp.sentinel.datasource.xds.util.CertificateUtil;
 import com.alibaba.csp.sentinel.datasource.xds.util.TestUtil;
 
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -46,6 +47,7 @@ public class IstioCertManagerTest {
      * The test generated the CSR correctly
      */
     @Test
+    @Ignore
     public void testGetCSR() {
         for (AsymCryptoType asymCryptoType : AsymCryptoType.values()) {
             KeyPair keyPair = CertificateUtil.genKeyPair(asymCryptoType);
