@@ -19,7 +19,7 @@
         <!-- Envoy Api Versions -->
         <envoy-api.version>1.0.39</envoy-api.version>
 
-        <protobuf.version>3.24.0</protobuf.version>
+        <protobuf.version>3.24.1</protobuf.version>
         <os-plugin.version>1.6.2</os-plugin.version>
         <pb-plugin.version>0.6.1</pb-plugin.version>
 
@@ -30,7 +30,7 @@
         <io.grpc.version>1.57.2</io.grpc.version>
 
         <bouncycastle_version>1.76</bouncycastle_version>
-        <com.google.protobuf.version>3.24.0</com.google.protobuf.version>
+        <com.google.protobuf.version>3.24.1</com.google.protobuf.version>
         <jose4j.version>0.8.0</jose4j.version>
         <httpclient.version>4.5.14</httpclient.version>
     </properties>
