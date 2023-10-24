@@ -15,7 +15,7 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <jetcd.version>0.7.5</jetcd.version>
+        <jetcd.version>0.7.6</jetcd.version>
     </properties>
 
     <dependencies>
@@ -29,11 +29,9 @@
             <artifactId>jetcd-core</artifactId>
             <version>${jetcd.version}</version>
         </dependency>
-
-
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
             <scope>test</scope>
         </dependency>
 

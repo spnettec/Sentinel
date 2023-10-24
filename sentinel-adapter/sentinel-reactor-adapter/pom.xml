@@ -14,7 +14,7 @@
     <properties>
         <java.source.version>17</java.source.version>
         <java.target.version>17</java.target.version>
-        <reactor.version>3.5.9</reactor.version>
+        <reactor.version>3.5.11</reactor.version>
     </properties>
 
     <dependencies>
@@ -30,8 +30,8 @@
         </dependency>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

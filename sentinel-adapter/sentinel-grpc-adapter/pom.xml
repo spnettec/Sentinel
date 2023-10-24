@@ -12,8 +12,8 @@
     <packaging>jar</packaging>
 
     <properties>
-        <protobuf.version>3.24.1</protobuf.version>
-        <grpc.version>1.57.2</grpc.version>
+        <protobuf.version>3.24.4</protobuf.version>
+        <grpc.version>1.59.0</grpc.version>
     </properties>
 
     <dependencies>
@@ -49,8 +49,8 @@
 
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

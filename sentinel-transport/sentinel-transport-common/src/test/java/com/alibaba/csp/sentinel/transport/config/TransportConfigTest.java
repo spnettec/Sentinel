@@ -48,7 +48,7 @@ public class TransportConfigTest {
         assertNull(TransportConfig.getHeartbeatIntervalMs());
         // Set valid interval.
         SentinelConfig.setConfig(TransportConfig.HEARTBEAT_INTERVAL_MS, String.valueOf(interval));
-        assertEquals(new Long(interval), TransportConfig.getHeartbeatIntervalMs());
+        assertEquals(Long.valueOf(interval), TransportConfig.getHeartbeatIntervalMs());
         // Set invalid interval.
         SentinelConfig.setConfig(TransportConfig.HEARTBEAT_INTERVAL_MS, "Sentinel");
         assertNull(TransportConfig.getHeartbeatIntervalMs());

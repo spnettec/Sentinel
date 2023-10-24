@@ -19,8 +19,7 @@ import org.apache.zookeeper.data.ACL;
 import org.apache.zookeeper.data.Id;
 import org.apache.zookeeper.data.Stat;
 import org.apache.zookeeper.server.auth.DigestAuthenticationProvider;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,8 +27,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 import static org.awaitility.Awaitility.await;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Eric Zhao
@@ -134,7 +133,7 @@ public class ZookeeperDataSourceTest {
                     @Override
                     public Boolean call() throws Exception {
                         List<FlowRule> rules = FlowRuleManager.getRules();
-                        return rules != null && !rules.isEmpty();
+                        return !rules.isEmpty();
                     }
                 });
 
@@ -143,7 +142,7 @@ public class ZookeeperDataSourceTest {
         for (FlowRule r : rules) {
             if (resourceName.equals(r.getResource())) {
                 exists = true;
-                assertEquals(count, new Double(r.getCount()).longValue());
+                assertEquals(count, Double.valueOf(r.getCount()).longValue());
             }
         }
         assertTrue(exists);
@@ -182,7 +181,7 @@ public class ZookeeperDataSourceTest {
                 });
 
 
-        Assert.assertTrue(flowRuleZkDataSource.getZkClient() == degradeRuleZkDataSource.getZkClient());
+        assertTrue(flowRuleZkDataSource.getZkClient() == degradeRuleZkDataSource.getZkClient());
 
 
         final String groupId = "sentinel-zk-ds-demo";
@@ -214,7 +213,7 @@ public class ZookeeperDataSourceTest {
                     }
                 });
 
-        Assert.assertTrue(flowRuleZkAutoDataSource.getZkClient() == degradeRuleZkAutoDataSource.getZkClient());
+        assertTrue(flowRuleZkAutoDataSource.getZkClient() == degradeRuleZkAutoDataSource.getZkClient());
 
         server.stop();
     }
