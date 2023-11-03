@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.github.heyoulin.Sentinel</groupId>
         <artifactId>sentinel-parent</artifactId>
-        <version>2.0.5.B</version>
+        <version>2.0.6.B</version>
     </parent>
     <artifactId>sentinel-security-core</artifactId>
     <packaging>jar</packaging>
