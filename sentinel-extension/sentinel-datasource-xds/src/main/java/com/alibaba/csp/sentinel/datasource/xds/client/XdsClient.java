@@ -97,7 +97,7 @@ public class XdsClient {
         Metadata header = new Metadata();
         Metadata.Key<String> key = Metadata.Key.of("authorization", Metadata.ASCII_STRING_MARSHALLER);
         header.put(key, "Bearer " + istiodToken);
-        stub = MetadataUtils.attachHeaders(stub, header);
+        stub = stub.withInterceptors(MetadataUtils.newAttachHeadersInterceptor(header));
         return stub.streamAggregatedResources(observer);
     }
 

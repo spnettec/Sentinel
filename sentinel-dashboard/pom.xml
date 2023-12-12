@@ -14,10 +14,10 @@
 
     <properties>
         <resource.delimiter>@</resource.delimiter>
-        <spring.boot.version>3.1.5</spring.boot.version>
+        <spring.boot.version>3.2.0</spring.boot.version>
         <curator.version>5.5.0</curator.version>
-        <log4j.version>2.21.0</log4j.version>
-        <commons-lang3.version>3.13.0</commons-lang3.version>
+        <log4j.version>2.22.0</log4j.version>
+        <commons-lang3.version>3.14.0</commons-lang3.version>
         <httpclient.version>4.5.14</httpclient.version>
         <httpcore.version>4.4.16</httpcore.version>
         <httpasyncclient.version>4.1.5</httpasyncclient.version>

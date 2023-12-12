@@ -141,10 +141,10 @@ public class IstioCertManager extends AbstractCertManager {
 
             IstioCertificateServiceGrpc.IstioCertificateServiceStub stub = IstioCertificateServiceGrpc
                 .newStub(channel);
-            stub = MetadataUtils.attachHeaders(stub, header);
+            stub = stub.withInterceptors(MetadataUtils.newAttachHeadersInterceptor(header));
             final CountDownLatch countDownLatch = new CountDownLatch(1);
 
-            long certExpireTime = System.currentTimeMillis() + xdsConfigProperties.getCertValidityTimeS() * 1000;
+            long certExpireTime = System.currentTimeMillis() + xdsConfigProperties.getCertValidityTimeS() * 1000L;
             stub.createCertificate(
                 IstioCertificateRequest.newBuilder().setCsr(csr)
                     .setValidityDuration(xdsConfigProperties.getCertValidityTimeS())
@@ -165,7 +165,7 @@ public class IstioCertManager extends AbstractCertManager {
 
                         newCertPair.setExpireTime(certExpireTime);
                         newCertPair.setRawCertificateChain(certChainRaw.toString().getBytes(StandardCharsets.UTF_8));
-                        newCertPair.setCertificateChain(certificates.toArray(new Certificate[certificates.size()]));
+                        newCertPair.setCertificateChain(certificates.toArray(Certificate[]::new));
                         RecordLog.info("[XdsDataSource] Send CSR to CA successfully", n);
                         countDownLatch.countDown();
                     }
