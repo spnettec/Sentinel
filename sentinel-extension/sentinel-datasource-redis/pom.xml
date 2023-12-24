@@ -15,8 +15,8 @@
     <properties>
         <java.source.version>17</java.source.version>
         <java.target.version>17</java.target.version>
-        <lettuce.version>6.2.3.RELEASE</lettuce.version>
-        <jedis-mock.version>1.0.7</jedis-mock.version>
+        <lettuce.version>6.3.0.RELEASE</lettuce.version>
+        <jedis-mock.version>1.0.13</jedis-mock.version>
     </properties>
 
     <dependencies>

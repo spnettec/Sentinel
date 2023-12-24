@@ -12,7 +12,7 @@
   <artifactId>sentinel-datasource-apollo</artifactId>
 
   <properties>
-    <apollo.version>2.1.0</apollo.version>
+    <apollo.version>2.2.0</apollo.version>
   </properties>
 
   <dependencies>
