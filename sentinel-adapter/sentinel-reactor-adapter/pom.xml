@@ -14,7 +14,7 @@
     <properties>
         <java.source.version>17</java.source.version>
         <java.target.version>17</java.target.version>
-        <reactor.version>3.6.1</reactor.version>
+        <reactor.version>3.6.3</reactor.version>
     </properties>
 
     <dependencies>

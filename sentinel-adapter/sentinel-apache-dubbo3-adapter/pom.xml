@@ -15,8 +15,8 @@
     <properties>
         <java.source.version>17</java.source.version>
         <java.target.version>17</java.target.version>
-        <apache.dubbo.version>3.2.10</apache.dubbo.version>
-        <netty.version>4.1.106.Final</netty.version>
+        <apache.dubbo.version>3.2.11</apache.dubbo.version>
+        <netty.version>4.1.107.Final</netty.version>
     </properties>
 
     <dependencies>
