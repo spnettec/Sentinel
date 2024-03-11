@@ -63,9 +63,9 @@ If you're using Maven, just add the following dependency in `pom.xml`.
 ```xml
 <!-- replace here with the latest version -->
 <dependency>
-   <groupId>com.github.heyoulin.Sentinel</groupId>
+    <groupId>com.alibaba.csp</groupId>
     <artifactId>sentinel-core</artifactId>
-    <version>2.0.7.B</version>
+    <version>2.0.0-alpha2-SNAPSHOT</version>
 </dependency>
 ```
 
