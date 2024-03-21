@@ -3,9 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.alibaba.csp</groupId>
         <artifactId>sentinel-adapter</artifactId>
-        <version>1.8.7</version>
+        <groupId>com.github.heyoulin.Sentinel</groupId>
+        <version>2.0.7.B</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,22 +13,22 @@
     <packaging>jar</packaging>
 
     <properties>
-        <spring.version>6.0.2</spring.version>
-        <spring.boot.version>3.0.0</spring.boot.version>
+        <spring.version>6.1.4</spring.version>
+        <spring.boot.version>3.2.3</spring.boot.version>
         <servlet.api.version>6.0.0</servlet.api.version>
         <jakarta.xml.bind-api.version>4.0.0</jakarta.xml.bind-api.version>
-        <slf4j-api.version>2.0.4</slf4j-api.version>
+        <slf4j-api.version>2.0.12</slf4j-api.version>
 
         <skip.spring.v6x.test>false</skip.spring.v6x.test>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.alibaba.csp</groupId>
+            <groupId>com.github.heyoulin.Sentinel</groupId>
             <artifactId>sentinel-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.alibaba.csp</groupId>
+            <groupId>com.github.heyoulin.Sentinel</groupId>
             <artifactId>sentinel-web-adapter-common</artifactId>
         </dependency>
 
@@ -63,8 +63,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
