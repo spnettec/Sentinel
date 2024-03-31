@@ -5,7 +5,7 @@
     <parent>
         <artifactId>sentinel-extension</artifactId>
        <groupId>com.github.heyoulin.Sentinel</groupId>
-        <version>2.0.7.B</version>
+        <version>2.0.8.B</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,7 +13,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <nacos.version>2.3.1.B</nacos.version>
+        <nacos.version>2.4.0.B</nacos.version>
     </properties>
 
     <dependencies>
