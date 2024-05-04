@@ -15,9 +15,9 @@
  */
 package com.alibaba.csp.sentinel;
 
-import com.alibaba.csp.sentinel.adapter.dubbo3.AbstractTimeBasedTest;
-import com.alibaba.csp.sentinel.adapter.dubbo3.config.DubboAdapterGlobalConfig;
-import com.alibaba.csp.sentinel.adapter.dubbo3.fallback.DefaultDubboFallback;
+import com.alibaba.csp.sentinel.adapter.dubbo.AbstractTimeBasedTest;
+import com.alibaba.csp.sentinel.adapter.dubbo.config.DubboAdapterGlobalConfig;
+import com.alibaba.csp.sentinel.adapter.dubbo.fallback.DefaultDubboFallback;
 import com.alibaba.csp.sentinel.config.SentinelConfig;
 import com.alibaba.csp.sentinel.context.ContextUtil;
 import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRuleManager;

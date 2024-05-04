@@ -13,13 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alibaba.csp.sentinel.adapter.dubbo3;
+package com.alibaba.csp.sentinel.adapter.dubbo;
 
 import com.alibaba.csp.sentinel.BaseTest;
 import com.alibaba.csp.sentinel.DubboTestUtil;
 import com.alibaba.csp.sentinel.Entry;
 import com.alibaba.csp.sentinel.EntryType;
-import com.alibaba.csp.sentinel.adapter.dubbo3.config.DubboAdapterGlobalConfig;
+import com.alibaba.csp.sentinel.adapter.dubbo.config.DubboAdapterGlobalConfig;
+import com.alibaba.csp.sentinel.adapter.dubbo.fallback.DubboFallback;
+import com.alibaba.csp.sentinel.adapter.dubbo.fallback.DubboFallbackRegistry;
 import com.alibaba.csp.sentinel.context.Context;
 import com.alibaba.csp.sentinel.context.ContextUtil;
 import com.alibaba.csp.sentinel.node.ClusterNode;
@@ -27,11 +29,13 @@ import com.alibaba.csp.sentinel.node.DefaultNode;
 import com.alibaba.csp.sentinel.node.Node;
 import com.alibaba.csp.sentinel.node.StatisticNode;
 import com.alibaba.csp.sentinel.slotchain.ResourceWrapper;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRule;
 import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRuleManager;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
+
 import com.alibaba.csp.sentinel.util.TimeUtil;
 import org.apache.dubbo.rpc.*;
 import org.apache.dubbo.rpc.support.RpcUtils;
@@ -97,6 +101,7 @@ public class SentinelDubboConsumerFilterTest extends BaseTest {
     public void testDegradeAsync() throws InterruptedException {
         try (MockedStatic<TimeUtil> mocked = super.mockTimeUtil()) {
             setCurrentMillis(mocked, 1740000000000L);
+
             Invocation invocation = DubboTestUtil.getDefaultMockInvocationOne();
             Invoker invoker = DubboTestUtil.getDefaultMockInvoker();
 
@@ -129,7 +134,7 @@ public class SentinelDubboConsumerFilterTest extends BaseTest {
     @Test
     public void testDegradeSync() {
         try (MockedStatic<TimeUtil> mocked = super.mockTimeUtil()) {
-            setCurrentMillis(mocked, 1750000000000L);
+            setCurrentMillis(mocked, 1740000000000L);
 
             Invocation invocation = DubboTestUtil.getDefaultMockInvocationOne();
             Invoker invoker = DubboTestUtil.getDefaultMockInvoker();
@@ -270,7 +275,7 @@ public class SentinelDubboConsumerFilterTest extends BaseTest {
         ClusterNode methodClusterNode = methodNode.getClusterNode();
         ClusterNode interfaceClusterNode = interfaceNode.getClusterNode();
         assertNotSame(methodClusterNode,
-                interfaceClusterNode);// Different resource->Different ProcessorSlot->Different ClusterNode
+            interfaceClusterNode);// Different resource->Different ProcessorSlot->Different ClusterNode
 
         // As context origin is "", the StatisticNode should not be created in originCountMap of ClusterNode
         Map<String, StatisticNode> methodOriginCountMap = methodClusterNode.getOriginCountMap();
@@ -322,7 +327,7 @@ public class SentinelDubboConsumerFilterTest extends BaseTest {
         ClusterNode methodClusterNode = methodNode.getClusterNode();
         ClusterNode interfaceClusterNode = interfaceNode.getClusterNode();
         assertNotSame(methodClusterNode,
-                interfaceClusterNode);// Different resource->Different ProcessorSlot->Different ClusterNode
+            interfaceClusterNode);// Different resource->Different ProcessorSlot->Different ClusterNode
 
         // As context origin is "", the StatisticNode should not be created in originCountMap of ClusterNode
         Map<String, StatisticNode> methodOriginCountMap = methodClusterNode.getOriginCountMap();
@@ -367,8 +372,8 @@ public class SentinelDubboConsumerFilterTest extends BaseTest {
 
     private void initDegradeRule(String resource) {
         DegradeRule degradeRule = new DegradeRule(resource)
-                .setCount(0.5)
-                .setGrade(DEGRADE_GRADE_EXCEPTION_RATIO);
+            .setCount(0.5)
+            .setGrade(DEGRADE_GRADE_EXCEPTION_RATIO);
         List<DegradeRule> degradeRules = new ArrayList<>();
         degradeRules.add(degradeRule);
         degradeRule.setTimeWindow(1);
@@ -389,7 +394,7 @@ public class SentinelDubboConsumerFilterTest extends BaseTest {
             result = exception ? new AppResponse(new Exception("error")) : new AppResponse("normal");
         } else {
             result = exception ? AsyncRpcResult.newDefaultAsyncResult(new Exception("error"), invocation)
-                    : AsyncRpcResult.newDefaultAsyncResult("normal", invocation);
+                : AsyncRpcResult.newDefaultAsyncResult("normal", invocation);
         }
         when(invoker.invoke(invocation)).thenReturn(result);
         return consumerFilter.invoke(invoker, invocation);
