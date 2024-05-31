@@ -13,18 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alibaba.csp.sentinel.demo.annotation.aop.service;
+package com.alibaba.csp.sentinel.traffic;
 
 /**
- * @author Eric Zhao
+ * The observer for remote provider app change event.
+ *
+ * @author panxiaojun233
  */
-public interface TestService {
+public interface RemoteAppObserver {
 
-    void test();
+    void onRemoteAppAppears(String app);
 
-    String hello(long s);
-
-    String hello(String s);
-
-    String helloAnother(String name);
+    void onRemoteAppDisappears(String app);
 }

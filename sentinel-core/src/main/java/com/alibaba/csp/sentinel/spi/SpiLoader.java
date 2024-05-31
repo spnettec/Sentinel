@@ -329,11 +329,11 @@ public final class SpiLoader<S> {
         try {
             urls = classLoader.getResources(fullFileName);
         } catch (IOException e) {
-            fail("Error locating SPI configuration file,filename=" + fullFileName + ",classloader=" + classLoader, e);
+            fail("Error locating SPI configuration file, filename=" + fullFileName + ", classloader=" + classLoader, e);
         }
 
         if (urls == null || !urls.hasMoreElements()) {
-            RecordLog.warn("No SPI configuration file,filename=" + fullFileName + ",classloader=" + classLoader);
+            RecordLog.warn("No SPI configuration file, filename=" + fullFileName + ", classloader=" + classLoader);
             return;
         }
 
