@@ -36,13 +36,11 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
 /**
  * Since request may be reprocessed in flow if any forwarding or including or other action
- * happened (see {@link javax.servlet.ServletRequest#getDispatcherType()}) we will only
+ * happened (see {@link jakarta.servlet.ServletRequest#getDispatcherType()}) we will only
  * deal with the initial request. So we use <b>reference count</b> to track in
  * dispathing "onion" though which we could figure out whether we are in initial type "REQUEST".
  * That means the sub-requests which we rarely meet in practice will NOT be recorded in Sentinel.
