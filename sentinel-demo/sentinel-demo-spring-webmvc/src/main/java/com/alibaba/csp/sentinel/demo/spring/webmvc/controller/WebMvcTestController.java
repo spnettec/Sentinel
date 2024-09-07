@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      https://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,63 +13,79 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alibaba.csp.sentinel.adapter.spring.webmvc.controller;
+package com.alibaba.csp.sentinel.demo.spring.webmvc.controller;
 
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
-import com.alibaba.csp.sentinel.adapter.spring.webmvc.exception.BizException;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
+ * Test controller
+ *
  * @author kaizi2009
  */
-@RestController
-public class TestController {
+@Controller
+public class WebMvcTestController {
 
     @GetMapping("/hello")
+    @ResponseBody
     public String apiHello() {
+        doBusiness();
         return "Hello!";
     }
 
     @GetMapping("/err")
+    @ResponseBody
     public String apiError() {
+        doBusiness();
         return "Oops...";
     }
 
     @GetMapping("/foo/{id}")
+    @ResponseBody
     public String apiFoo(@PathVariable("id") Long id) {
-        return "foo " + id;
-    }
-
-    @GetMapping("/runtimeException")
-    public String runtimeException() {
-        int i = 1 / 0;
-        return "runtimeException";
-    }
-
-    @GetMapping("/bizException")
-    public String bizException() {
-        throw new BizException();
+        doBusiness();
+        return "Hello " + id;
     }
 
     @GetMapping("/exclude/{id}")
+    @ResponseBody
     public String apiExclude(@PathVariable("id") Long id) {
+        doBusiness();
         return "Exclude " + id;
+    }
+
+    @GetMapping("/forward")
+    public ModelAndView apiForward() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("hello");
+        return mav;
     }
 
     @GetMapping("/async")
     @ResponseBody
-    public DeferredResult<String> distribute() throws Exception{
-        DeferredResult<String> result = new DeferredResult<>();
+    public DeferredResult<String> distribute() throws Exception {
+        DeferredResult<String> result = new DeferredResult<>(4000L);
 
-        Thread thread = new Thread(() -> result.setResult("async result."));
+        Thread thread = new Thread(() -> result.setResult("async result"));
         thread.start();
 
-        Thread.yield();
         return result;
+    }
+
+    private void doBusiness() {
+        Random random = new Random(1);
+        try {
+            TimeUnit.MILLISECONDS.sleep(random.nextInt(100));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }
