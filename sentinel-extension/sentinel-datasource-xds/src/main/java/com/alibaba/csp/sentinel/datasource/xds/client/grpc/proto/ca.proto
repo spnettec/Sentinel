@@ -20,7 +20,7 @@ syntax = "proto3";
 import "google/protobuf/struct.proto";
 
 // Keep this package for backward compatibility.
-package istio.v1.auth;
+package com.alibaba.csp.sentinel.datasource.xds.client.grpc;
 
 option go_package = "istio.io/api/security/v1alpha1";
 option java_generic_services = true;

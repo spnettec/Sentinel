@@ -29,8 +29,7 @@ import io.grpc.ForwardingClientCallListener;
 import io.grpc.Metadata;
 import io.grpc.MethodDescriptor;
 import io.grpc.Status;
-
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**

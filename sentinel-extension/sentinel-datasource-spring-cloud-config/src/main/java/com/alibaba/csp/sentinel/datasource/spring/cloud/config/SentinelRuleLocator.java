@@ -37,7 +37,6 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.retry.annotation.Retryable;
-import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
@@ -45,10 +44,7 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.springframework.cloud.config.client.ConfigClientProperties.*;
 
@@ -263,7 +259,7 @@ public class SentinelRuleLocator implements PropertySourceLocator {
         }
 
         if (password != null) {
-            byte[] token = Base64Utils.encode((username + ":" + password).getBytes());
+            byte[] token = Base64.getEncoder().encode((username + ":" + password).getBytes());
             httpHeaders.add("Authorization", "Basic " + new String(token));
         } else if (authorization != null) {
             httpHeaders.add("Authorization", authorization);

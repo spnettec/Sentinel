@@ -12,8 +12,8 @@
     <packaging>jar</packaging>
 
     <properties>
-        <protobuf.version>3.25.3</protobuf.version>
-        <grpc.version>1.62.2</grpc.version>
+        <protobuf.version>4.30.2</protobuf.version>
+        <grpc.version>1.71.0</grpc.version>
     </properties>
 
     <dependencies>
@@ -42,11 +42,15 @@
         </dependency>
         <!-- workaround for compile in JDK 11 -->
         <dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>javax.annotation-api</artifactId>
-            <version>${javax.annotation-api.version}</version>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <version>${jakarta.annotation-api.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>${protobuf.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.powermock</groupId>
@@ -63,6 +67,12 @@
             <artifactId>fastjson2</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>24.0.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -70,7 +80,7 @@
             <extension>
                 <groupId>kr.motd.maven</groupId>
                 <artifactId>os-maven-plugin</artifactId>
-                <version>1.7.0</version>
+                <version>1.7.1</version>
             </extension>
         </extensions>
         <plugins>
@@ -83,6 +93,9 @@
                     <pluginId>grpc-java</pluginId>
                     <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}
                     </pluginArtifact>
+                    <pluginParameter>
+                        @generated=omit
+                    </pluginParameter>
                 </configuration>
                 <executions>
                     <execution>
