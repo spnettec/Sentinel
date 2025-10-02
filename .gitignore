@@ -28,5 +28,6 @@ bin/
 # System related
 *.DS_Store
 Thumbs.db
-/sentinel-demo/sentinel-demo-log-logback/sentinel-command-center.log
-/sentinel-demo/sentinel-demo-log-logback/sentinel-record.log
+
+# flattened pom file
+.flattened-pom.xml
