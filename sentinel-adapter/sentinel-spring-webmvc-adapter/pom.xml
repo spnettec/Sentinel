@@ -24,10 +24,6 @@
             <artifactId>sentinel-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.github.heyoulin.Sentinel</groupId>
-            <artifactId>sentinel-security-core</artifactId>
-        </dependency>
-        <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
             <version>${servlet.api.version}</version>
@@ -58,8 +54,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-module-junit4</artifactId>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
