@@ -9,15 +9,17 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <name>${project.groupId}:${project.artifactId}</name>
+
     <artifactId>sentinel-metric-exporter</artifactId>
     <packaging>jar</packaging>
-
+    
     <dependencies>
         <dependency>
            <groupId>com.github.heyoulin.Sentinel</groupId>
             <artifactId>sentinel-core</artifactId>
         </dependency>
-
+    
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
