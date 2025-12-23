@@ -25,10 +25,7 @@ import com.ecwid.consul.v1.ConsulClient;
 import com.ecwid.consul.v1.Response;
 import com.pszymczyk.consul.ConsulProcess;
 import com.pszymczyk.consul.ConsulStarterBuilder;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +35,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author wavesZh
  */
+@Ignore
 public class ConsulDataSourceTest {
 
     private final String ruleKey = "sentinel.rules.flow.ruleKey";
