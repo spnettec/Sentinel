@@ -24,7 +24,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import static org.springframework.web.reactive.function.BodyInserters.fromObject;
+import static org.springframework.web.reactive.function.BodyInserters.fromValue;
 
 /**
  * The default implementation of {@link BlockRequestHandler}.
@@ -43,14 +43,14 @@ public class DefaultBlockRequestHandler implements BlockRequestHandler {
         }
         // JSON result by default.
         return ServerResponse.status(HttpStatus.TOO_MANY_REQUESTS)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .body(fromObject(buildErrorResult(ex)));
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(fromValue(buildErrorResult(ex)));
     }
 
     private Mono<ServerResponse> htmlErrorResponse(Throwable ex) {
         return ServerResponse.status(HttpStatus.TOO_MANY_REQUESTS)
             .contentType(MediaType.TEXT_PLAIN)
-            .syncBody(DEFAULT_BLOCK_MSG_PREFIX + ex.getClass().getSimpleName());
+            .bodyValue(DEFAULT_BLOCK_MSG_PREFIX + ex.getClass().getSimpleName());
     }
 
     private ErrorResult buildErrorResult(Throwable ex) {
@@ -65,7 +65,6 @@ public class DefaultBlockRequestHandler implements BlockRequestHandler {
         try {
             List<MediaType> acceptedMediaTypes = exchange.getRequest().getHeaders().getAccept();
             acceptedMediaTypes.remove(MediaType.ALL);
-            MediaType.sortBySpecificityAndQuality(acceptedMediaTypes);
             return acceptedMediaTypes.stream()
                 .anyMatch(MediaType.TEXT_HTML::isCompatibleWith);
         } catch (InvalidMediaTypeException ex) {

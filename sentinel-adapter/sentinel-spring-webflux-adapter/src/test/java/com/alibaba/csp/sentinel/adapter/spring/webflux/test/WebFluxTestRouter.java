@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
-import static org.springframework.web.reactive.function.BodyInserters.fromObject;
+import static org.springframework.web.reactive.function.BodyInserters.fromValue;
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
@@ -33,6 +33,6 @@ public class WebFluxTestRouter {
     @Bean
     RouterFunction<ServerResponse> routingFunction() {
         return route(GET("/router/hello"),
-                req -> ServerResponse.ok().body(fromObject("Hello!")));
+                req -> ServerResponse.ok().body(fromValue("Hello!")));
     }
 }

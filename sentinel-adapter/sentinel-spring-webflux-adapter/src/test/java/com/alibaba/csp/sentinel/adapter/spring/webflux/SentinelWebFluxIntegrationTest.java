@@ -151,13 +151,13 @@ public class SentinelWebFluxIntegrationTest {
         String prefix = "blocked: ";
         WebFluxCallbackManager.setBlockHandler((exchange, t) -> ServerResponse.ok()
             .contentType(MediaType.TEXT_PLAIN)
-            .syncBody(prefix + t.getMessage()));
+            .bodyValue(prefix + t.getMessage()));
 
         this.webClient.get()
             .uri(url)
             .exchange()
             .expectStatus().isOk()
-            .expectBody(String.class).value(StringContains.containsString(prefix));
+            .expectBody(String.class).value(s->StringContains.containsString(prefix));
 
         WebFluxCallbackManager.resetBlockHandler();
     }
