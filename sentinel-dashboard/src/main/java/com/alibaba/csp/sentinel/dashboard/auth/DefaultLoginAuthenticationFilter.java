@@ -70,7 +70,7 @@ public class DefaultLoginAuthenticationFilter implements LoginAuthenticationFilt
     }
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
 
     }
 

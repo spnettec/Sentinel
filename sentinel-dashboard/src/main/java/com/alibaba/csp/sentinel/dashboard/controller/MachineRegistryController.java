@@ -37,15 +37,21 @@ public class MachineRegistryController {
 
     private final Logger logger = LoggerFactory.getLogger(MachineRegistryController.class);
 
-    @Autowired
-    private AppManagement appManagement;
+    private final AppManagement appManagement;
+
+    public MachineRegistryController(AppManagement appManagement) {
+        this.appManagement = appManagement;
+    }
 
     @ResponseBody
     @RequestMapping("/machine")
     public Result<?> receiveHeartBeat(String app,
-                                      @RequestParam(value = "app_type", required = false, defaultValue = "0")
-                                          Integer appType, Long version, String v, String hostname, String ip,
-                                      Integer port) {
+                                      @RequestParam(value = "app_type", required = false, defaultValue = "0") Integer appType,
+                                      @RequestParam("version") Long version,
+                                      @RequestParam("v") String v,
+                                      @RequestParam("hostname") String hostname,
+                                      @RequestParam("ip") String ip,
+                                      @RequestParam("port") Integer port) {
         if (StringUtil.isBlank(app) || app.length() > 256) {
             return Result.ofFail(-1, "invalid appName");
         }

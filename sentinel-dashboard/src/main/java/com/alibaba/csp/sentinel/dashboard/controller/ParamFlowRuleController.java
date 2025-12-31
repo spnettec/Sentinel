@@ -59,12 +59,15 @@ public class ParamFlowRuleController {
 
     private final Logger logger = LoggerFactory.getLogger(ParamFlowRuleController.class);
 
-    @Autowired
-    private SentinelApiClient sentinelApiClient;
-    @Autowired
-    private AppManagement appManagement;
-    @Autowired
-    private RuleRepository<ParamFlowRuleEntity, Long> repository;
+    private final SentinelApiClient sentinelApiClient;
+    private final AppManagement appManagement;
+    private final RuleRepository<ParamFlowRuleEntity, Long> repository;
+
+    public ParamFlowRuleController(SentinelApiClient sentinelApiClient, AppManagement appManagement, RuleRepository<ParamFlowRuleEntity, Long> repository) {
+        this.sentinelApiClient = sentinelApiClient;
+        this.appManagement = appManagement;
+        this.repository = repository;
+    }
 
     private boolean checkIfSupported(String app, String ip, int port) {
         try {
@@ -81,9 +84,9 @@ public class ParamFlowRuleController {
 
     @GetMapping("/rules")
     @AuthAction(PrivilegeType.READ_RULE)
-    public Result<List<ParamFlowRuleEntity>> apiQueryAllRulesForMachine(@RequestParam String app,
-                                                                        @RequestParam String ip,
-                                                                        @RequestParam Integer port) {
+    public Result<List<ParamFlowRuleEntity>> apiQueryAllRulesForMachine(@RequestParam("app") String app,
+                                                                        @RequestParam("ip") String ip,
+                                                                        @RequestParam("port") Integer port) {
         if (StringUtil.isEmpty(app)) {
             return Result.ofFail(-1, "app cannot be null or empty");
         }
@@ -192,7 +195,7 @@ public class ParamFlowRuleController {
 
     @PutMapping("/rule/{id}")
     @AuthAction(AuthService.PrivilegeType.WRITE_RULE)
-    public Result<ParamFlowRuleEntity> apiUpdateParamFlowRule(@PathVariable("id") Long id,
+    public Result<ParamFlowRuleEntity> apiUpdateParamFlowRule(@PathVariable Long id,
                                                               @RequestBody ParamFlowRuleEntity entity) {
         if (id == null || id <= 0) {
             return Result.ofFail(-1, "Invalid id");
@@ -232,7 +235,7 @@ public class ParamFlowRuleController {
 
     @DeleteMapping("/rule/{id}")
     @AuthAction(PrivilegeType.DELETE_RULE)
-    public Result<Long> apiDeleteRule(@PathVariable("id") Long id) {
+    public Result<Long> apiDeleteRule(@PathVariable Long id) {
         if (id == null) {
             return Result.ofFail(-1, "id cannot be null");
         }

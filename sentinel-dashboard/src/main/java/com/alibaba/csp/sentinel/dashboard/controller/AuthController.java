@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -46,11 +47,14 @@ public class AuthController {
     @Value("${auth.password:sentinel}")
     private String authPassword;
 
-    @Autowired
-    private AuthService<HttpServletRequest> authService;
+    private final AuthService<HttpServletRequest> authService;
+
+    public AuthController(AuthService<HttpServletRequest> authService) {
+        this.authService = authService;
+    }
 
     @PostMapping("/login")
-    public Result<AuthService.AuthUser> login(HttpServletRequest request, String username, String password) {
+    public Result<AuthService.AuthUser> login(HttpServletRequest request, @RequestParam("username") String username, @RequestParam("password") String password) {
         if (StringUtils.isNotBlank(DashboardConfig.getAuthUsername())) {
             authUsername = DashboardConfig.getAuthUsername();
         }

@@ -18,11 +18,10 @@ package com.alibaba.csp.sentinel.dashboard.controller;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.csp.sentinel.Entry;
@@ -34,8 +33,6 @@ import com.alibaba.csp.sentinel.slots.block.BlockException;
 @Controller
 @RequestMapping(value = "/demo", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DemoController {
-
-    Logger logger = LoggerFactory.getLogger(MachineRegistryController.class);
 
     @RequestMapping("/greeting")
     public String greeting() {
@@ -61,7 +58,8 @@ public class DemoController {
 
     @RequestMapping("/loop")
     @ResponseBody
-    public String loop(String name, int time) throws BlockException {
+    public String loop(@RequestParam("name") String name,
+                       @RequestParam("time") int time) {
         for (int i = 0; i < 10; i++) {
             Thread timer = new Thread(new RunTask(name, time, false));
             timer.setName("false");
@@ -72,7 +70,8 @@ public class DemoController {
 
     @RequestMapping("/slow")
     @ResponseBody
-    public String slow(String name, int time) throws BlockException {
+    public String slow(@RequestParam("name") String name,
+                       @RequestParam("time") int time) {
         for (int i = 0; i < 10; i++) {
             Thread timer = new Thread(new RunTask(name, time, true));
             timer.setName("false");

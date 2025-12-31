@@ -32,6 +32,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.csp.sentinel.util.StringUtil;
@@ -50,16 +51,21 @@ public class MetricController {
 
     private static final long maxQueryIntervalMs = 1000 * 60 * 60;
 
-    @Autowired
-    private MetricsRepository<MetricEntity> metricStore;
+    private final MetricsRepository<MetricEntity> metricStore;
+
+    public MetricController(MetricsRepository<MetricEntity> metricStore) {
+        this.metricStore = metricStore;
+    }
 
     @ResponseBody
     @RequestMapping("/queryTopResourceMetric.json")
-    public Result<?> queryTopResourceMetric(final String app,
-                                            Integer pageIndex,
-                                            Integer pageSize,
-                                            Boolean desc,
-                                            Long startTime, Long endTime, String searchKey) {
+    public Result<?> queryTopResourceMetric(@RequestParam("app") String app,
+                                            @RequestParam("pageIndex") Integer pageIndex,
+                                            @RequestParam("pageSize") Integer pageSize,
+                                            @RequestParam("desc") Boolean desc,
+                                            @RequestParam("startTime") Long startTime,
+                                            @RequestParam("endTime") Long endTime,
+                                            @RequestParam("searchKey") String searchKey) {
         if (StringUtil.isEmpty(app)) {
             return Result.ofFail(-1, "app can't be null or empty");
         }
@@ -137,7 +143,10 @@ public class MetricController {
 
     @ResponseBody
     @RequestMapping("/queryByAppAndResource.json")
-    public Result<?> queryByAppAndResource(String app, String identity, Long startTime, Long endTime) {
+    public Result<?> queryByAppAndResource(@RequestParam("app") String app,
+                                           @RequestParam("identity") String identity,
+                                           @RequestParam("startTime") Long startTime,
+                                           @RequestParam("endTime") Long endTime) {
         if (StringUtil.isEmpty(app)) {
             return Result.ofFail(-1, "app can't be null or empty");
         }

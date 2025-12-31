@@ -31,6 +31,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -42,8 +43,19 @@ public class ResourceController {
 
     private static Logger logger = LoggerFactory.getLogger(ResourceController.class);
 
-    @Autowired
-    private SentinelApiClient httpFetcher;
+    private final SentinelApiClient httpFetcher;
+
+    public ResourceController(SentinelApiClient httpFetcher) {
+        this.httpFetcher = httpFetcher;
+    }
+
+    public static Logger getLogger() {
+        return logger;
+    }
+
+    public static void setLogger(Logger logger) {
+        ResourceController.logger = logger;
+    }
 
     /**
      * Fetch real time statistics info of the machine.
@@ -56,8 +68,10 @@ public class ResourceController {
      * @return node statistics info.
      */
     @GetMapping("/machineResource.json")
-    public Result<List<ResourceVo>> fetchResourceChainListOfMachine(String ip, Integer port, String type,
-                                                                    String searchKey) {
+    public Result<List<ResourceVo>> fetchResourceChainListOfMachine(@RequestParam("ip") String ip,
+                                                                    @RequestParam("port") Integer port,
+                                                                    @RequestParam("type") String type,
+                                                                    @RequestParam("searchKey") String searchKey) {
         if (StringUtil.isEmpty(ip) || port == null) {
             return Result.ofFail(-1, "invalid param, give ip, port");
         }

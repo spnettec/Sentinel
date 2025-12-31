@@ -47,11 +47,14 @@ public class WebConfig implements WebMvcConfigurer {
 
     private final Logger logger = LoggerFactory.getLogger(WebConfig.class);
 
-    @Autowired
-    private LoginAuthenticationFilter loginAuthenticationFilter;
+    private final LoginAuthenticationFilter loginAuthenticationFilter;
 
-    @Autowired
-    private AuthorizationInterceptor authorizationInterceptor;
+    private final AuthorizationInterceptor authorizationInterceptor;
+
+    public WebConfig(LoginAuthenticationFilter loginAuthenticationFilter, AuthorizationInterceptor authorizationInterceptor) {
+        this.loginAuthenticationFilter = loginAuthenticationFilter;
+        this.authorizationInterceptor = authorizationInterceptor;
+    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -73,7 +76,7 @@ public class WebConfig implements WebMvcConfigurer {
      * for Web application.
      */
     @Bean
-    public FilterRegistrationBean sentinelFilterRegistration() {
+    public FilterRegistrationBean<Filter> sentinelFilterRegistration() {
         FilterRegistrationBean<Filter> registration = new FilterRegistrationBean<>();
         registration.setFilter(new CommonFilter());
         registration.addUrlPatterns("/*");
@@ -105,7 +108,7 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public FilterRegistrationBean authenticationFilterRegistration() {
+    public FilterRegistrationBean<Filter> authenticationFilterRegistration() {
         FilterRegistrationBean<Filter> registration = new FilterRegistrationBean<>();
         registration.setFilter(loginAuthenticationFilter);
         registration.addUrlPatterns("/*");

@@ -23,6 +23,24 @@ angular
     'selectize',
     'angularUtils.directives.dirPagination'
   ])
+  .factory('pathNormalizerInterceptor', function() {
+        return {
+            request: function(config) {
+                // 排除协议头后的双斜杠（如 http://）
+                // 将 URL 中非协议位置的 // 替换为 /
+                if (config.url && config.url.indexOf('://') === -1) {
+                    config.url = config.url.replace(/\/+/g, '/');
+                } else if (config.url) {
+                    var parts = config.url.split('://');
+                    config.url = parts[0] + '://' + parts[1].replace(/\/+/g, '/');
+                }
+                return config;
+            }
+        };
+  })
+  .config(['$httpProvider', function($httpProvider) {
+        $httpProvider.interceptors.push('pathNormalizerInterceptor');
+  }])
   .factory('AuthInterceptor', ['$window', '$state', function ($window, $state) {
     var authInterceptor = {
       'responseError' : function(response) {

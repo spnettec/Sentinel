@@ -34,6 +34,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -45,12 +46,15 @@ public class SystemController {
 
     private final Logger logger = LoggerFactory.getLogger(SystemController.class);
 
-    @Autowired
-    private RuleRepository<SystemRuleEntity, Long> repository;
-    @Autowired
-    private SentinelApiClient sentinelApiClient;
-    @Autowired
-    private AppManagement appManagement;
+    private final RuleRepository<SystemRuleEntity, Long> repository;
+    private final SentinelApiClient sentinelApiClient;
+    private final AppManagement appManagement;
+
+    public SystemController(RuleRepository<SystemRuleEntity, Long> repository, SentinelApiClient sentinelApiClient, AppManagement appManagement) {
+        this.repository = repository;
+        this.sentinelApiClient = sentinelApiClient;
+        this.appManagement = appManagement;
+    }
 
     private <R> Result<R> checkBasicParams(String app, String ip, Integer port) {
         if (StringUtil.isEmpty(app)) {
@@ -73,8 +77,9 @@ public class SystemController {
 
     @GetMapping("/rules.json")
     @AuthAction(PrivilegeType.READ_RULE)
-    public Result<List<SystemRuleEntity>> apiQueryMachineRules(String app, String ip,
-                                                               Integer port) {
+    public Result<List<SystemRuleEntity>> apiQueryMachineRules(@RequestParam("app") String app,
+                                                               @RequestParam("ip") String ip,
+                                                               @RequestParam("port") Integer port) {
         Result<List<SystemRuleEntity>> checkResult = checkBasicParams(app, ip, port);
         if (checkResult != null) {
             return checkResult;
@@ -101,9 +106,14 @@ public class SystemController {
 
     @RequestMapping("/new.json")
     @AuthAction(PrivilegeType.WRITE_RULE)
-    public Result<SystemRuleEntity> apiAdd(String app, String ip, Integer port,
-                                           Double highestSystemLoad, Double highestCpuUsage, Long avgRt,
-                                           Long maxThread, Double qps) {
+    public Result<SystemRuleEntity> apiAdd(@RequestParam("app") String app,
+                                           @RequestParam("ip") String ip,
+                                           @RequestParam("port") Integer port,
+                                           @RequestParam("highestSystemLoad") Double highestSystemLoad,
+                                           @RequestParam("highestCpuUsage") Double highestCpuUsage,
+                                           @RequestParam("avgRt") Long avgRt,
+                                           @RequestParam("maxThread") Long maxThread,
+                                           @RequestParam("qps") Double qps) {
 
         Result<SystemRuleEntity> checkResult = checkBasicParams(app, ip, port);
         if (checkResult != null) {
@@ -167,8 +177,13 @@ public class SystemController {
 
     @GetMapping("/save.json")
     @AuthAction(PrivilegeType.WRITE_RULE)
-    public Result<SystemRuleEntity> apiUpdateIfNotNull(Long id, String app, Double highestSystemLoad,
-            Double highestCpuUsage, Long avgRt, Long maxThread, Double qps) {
+    public Result<SystemRuleEntity> apiUpdateIfNotNull(@RequestParam("id") Long id,
+                                                       @RequestParam("app") String app,
+                                                       @RequestParam("highestSystemLoad") Double highestSystemLoad,
+                                                       @RequestParam("highestCpuUsage") Double highestCpuUsage,
+                                                       @RequestParam("avgRt") Long avgRt,
+                                                       @RequestParam("maxThread") Long maxThread,
+                                                       @RequestParam("qps") Double qps) {
         if (id == null) {
             return Result.ofFail(-1, "id can't be null");
         }
@@ -229,7 +244,7 @@ public class SystemController {
 
     @RequestMapping("/delete.json")
     @AuthAction(PrivilegeType.DELETE_RULE)
-    public Result<?> delete(Long id) {
+    public Result<?> delete(@RequestParam("id") Long id) {
         if (id == null) {
             return Result.ofFail(-1, "id can't be null");
         }

@@ -56,19 +56,22 @@ public class FlowControllerV1 {
 
     private final Logger logger = LoggerFactory.getLogger(FlowControllerV1.class);
 
-    @Autowired
-    private InMemoryRuleRepositoryAdapter<FlowRuleEntity> repository;
-    @Autowired
-    private AppManagement appManagement;
+    private final InMemoryRuleRepositoryAdapter<FlowRuleEntity> repository;
+    private final AppManagement appManagement;
 
-    @Autowired
-    private SentinelApiClient sentinelApiClient;
+    private final SentinelApiClient sentinelApiClient;
+
+    public FlowControllerV1(InMemoryRuleRepositoryAdapter<FlowRuleEntity> repository, AppManagement appManagement, SentinelApiClient sentinelApiClient) {
+        this.repository = repository;
+        this.appManagement = appManagement;
+        this.sentinelApiClient = sentinelApiClient;
+    }
 
     @GetMapping("/rules")
     @AuthAction(PrivilegeType.READ_RULE)
-    public Result<List<FlowRuleEntity>> apiQueryMachineRules(@RequestParam String app,
-                                                             @RequestParam String ip,
-                                                             @RequestParam Integer port) {
+    public Result<List<FlowRuleEntity>> apiQueryMachineRules(@RequestParam("app") String app,
+                                                             @RequestParam("ip") String ip,
+                                                             @RequestParam("port") Integer port) {
         if (StringUtil.isEmpty(app)) {
             return Result.ofFail(-1, "app can't be null or empty");
         }
@@ -168,11 +171,17 @@ public class FlowControllerV1 {
 
     @PutMapping("/save.json")
     @AuthAction(PrivilegeType.WRITE_RULE)
-    public Result<FlowRuleEntity> apiUpdateFlowRule(Long id, String app,
-                                                  String limitApp, String resource, Integer grade,
-                                                  Double count, Integer strategy, String refResource,
-                                                  Integer controlBehavior, Integer warmUpPeriodSec,
-                                                  Integer maxQueueingTimeMs) {
+    public Result<FlowRuleEntity> apiUpdateFlowRule(@RequestParam("id") Long id,
+                                                    @RequestParam("app") String app,
+                                                    @RequestParam("limitApp") String limitApp,
+                                                    @RequestParam("resource") String resource,
+                                                    @RequestParam("grade") Integer grade,
+                                                    @RequestParam("count") Double count,
+                                                    @RequestParam("strategy") Integer strategy,
+                                                    @RequestParam("refResource") String refResource,
+                                                    @RequestParam("controlBehavior") Integer controlBehavior,
+                                                    @RequestParam("warmUpPeriodSec") Integer warmUpPeriodSec,
+                                                    @RequestParam("maxQueueingTimeMs") Integer maxQueueingTimeMs) {
         if (id == null) {
             return Result.ofFail(-1, "id can't be null");
         }
@@ -248,7 +257,7 @@ public class FlowControllerV1 {
 
     @DeleteMapping("/delete.json")
     @AuthAction(PrivilegeType.WRITE_RULE)
-    public Result<Long> apiDeleteFlowRule(Long id) {
+    public Result<Long> apiDeleteFlowRule(@RequestParam("id") Long id) {
 
         if (id == null) {
             return Result.ofFail(-1, "id can't be null");
