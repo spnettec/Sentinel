@@ -42,15 +42,15 @@
     <properties>
         <revision>2.0.10.B</revision>
         <!-- Compile libs -->
-        <fastjson2.version>2.0.57</fastjson2.version>
+        <fastjson2.version>2.0.60</fastjson2.version>
         <jakarta.annotation-api.version>2.1.1</jakarta.annotation-api.version>
 
         <!-- Test libs -->
         <junit.version>4.12</junit.version>
         <mockito.version>4.11.0</mockito.version>
         <spring-boot.version>4.0.1</spring-boot.version>
-        <byte-buddy.version>1.14.10</byte-buddy.version>
-        <assertj.version>3.25.3</assertj.version>
+        <byte-buddy.version>1.18.3</byte-buddy.version>
+        <assertj.version>3.27.6</assertj.version>
         <awaitility.version>4.2.0</awaitility.version>
 
         <!-- Build -->

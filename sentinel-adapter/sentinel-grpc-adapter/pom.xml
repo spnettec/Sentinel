@@ -14,8 +14,8 @@
     <packaging>jar</packaging>
 
     <properties>
-        <protobuf.version>4.30.2</protobuf.version>
-        <grpc.version>1.72.0</grpc.version>
+        <protobuf.version>4.33.2</protobuf.version>
+        <grpc.version>1.78.0</grpc.version>
     </properties>
 
     <dependencies>
