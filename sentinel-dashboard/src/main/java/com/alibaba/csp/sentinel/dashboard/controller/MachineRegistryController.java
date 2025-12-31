@@ -45,7 +45,7 @@ public class MachineRegistryController {
 
     @ResponseBody
     @RequestMapping("/machine")
-    public Result<?> receiveHeartBeat(String app,
+    public Result<?> receiveHeartBeat(@RequestParam("app") String app,
                                       @RequestParam(value = "app_type", required = false, defaultValue = "0") Integer appType,
                                       @RequestParam("version") Long version,
                                       @RequestParam("v") String v,

@@ -55,19 +55,20 @@ public class FlowControllerV2 {
 
     private final Logger logger = LoggerFactory.getLogger(FlowControllerV2.class);
 
-    @Autowired
-    private InMemoryRuleRepositoryAdapter<FlowRuleEntity> repository;
+    private final InMemoryRuleRepositoryAdapter<FlowRuleEntity> repository;
 
-    @Autowired
-    @Qualifier("flowRuleDefaultProvider")
-    private DynamicRuleProvider<List<FlowRuleEntity>> ruleProvider;
-    @Autowired
-    @Qualifier("flowRuleDefaultPublisher")
-    private DynamicRulePublisher<List<FlowRuleEntity>> rulePublisher;
+    private final DynamicRuleProvider<List<FlowRuleEntity>> ruleProvider;
+    private final DynamicRulePublisher<List<FlowRuleEntity>> rulePublisher;
+
+    public FlowControllerV2(InMemoryRuleRepositoryAdapter<FlowRuleEntity> repository, @Qualifier("flowRuleDefaultProvider") DynamicRuleProvider<List<FlowRuleEntity>> ruleProvider, @Qualifier("flowRuleDefaultPublisher") DynamicRulePublisher<List<FlowRuleEntity>> rulePublisher) {
+        this.repository = repository;
+        this.ruleProvider = ruleProvider;
+        this.rulePublisher = rulePublisher;
+    }
 
     @GetMapping("/rules")
     @AuthAction(PrivilegeType.READ_RULE)
-    public Result<List<FlowRuleEntity>> apiQueryMachineRules(@RequestParam String app) {
+    public Result<List<FlowRuleEntity>> apiQueryMachineRules(@RequestParam("app") String app) {
 
         if (StringUtil.isEmpty(app)) {
             return Result.ofFail(-1, "app can't be null or empty");

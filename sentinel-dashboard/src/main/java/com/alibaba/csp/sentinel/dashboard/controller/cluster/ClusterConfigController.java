@@ -61,11 +61,14 @@ public class ClusterConfigController {
 
     private final SentinelVersion version140 = new SentinelVersion().setMajorVersion(1).setMinorVersion(4);
 
-    @Autowired
-    private AppManagement appManagement;
+    private final AppManagement appManagement;
 
-    @Autowired
-    private ClusterConfigService clusterConfigService;
+    private final ClusterConfigService clusterConfigService;
+
+    public ClusterConfigController(AppManagement appManagement, ClusterConfigService clusterConfigService) {
+        this.appManagement = appManagement;
+        this.clusterConfigService = clusterConfigService;
+    }
 
     @PostMapping("/config/modify_single")
     public Result<Boolean> apiModifyClusterConfig(@RequestBody String payload) {
@@ -117,9 +120,9 @@ public class ClusterConfigController {
     }
 
     @GetMapping("/state_single")
-    public Result<ClusterUniversalStateVO> apiGetClusterState(@RequestParam String app,
-                                                              @RequestParam String ip,
-                                                              @RequestParam Integer port) {
+    public Result<ClusterUniversalStateVO> apiGetClusterState(@RequestParam("app") String app,
+                                                              @RequestParam("ip") String ip,
+                                                              @RequestParam("port") Integer port) {
         if (StringUtil.isEmpty(app)) {
             return Result.ofFail(-1, "app cannot be null or empty");
         }
@@ -146,7 +149,7 @@ public class ClusterConfigController {
     }
 
     @GetMapping("/server_state/{app}")
-    public Result<List<AppClusterServerStateWrapVO>> apiGetClusterServerStateOfApp(@PathVariable String app) {
+    public Result<List<AppClusterServerStateWrapVO>> apiGetClusterServerStateOfApp(@PathVariable("app") String app) {
         if (StringUtil.isEmpty(app)) {
             return Result.ofFail(-1, "app cannot be null or empty");
         }
@@ -165,7 +168,7 @@ public class ClusterConfigController {
     }
 
     @GetMapping("/client_state/{app}")
-    public Result<List<AppClusterClientStateWrapVO>> apiGetClusterClientStateOfApp(@PathVariable String app) {
+    public Result<List<AppClusterClientStateWrapVO>> apiGetClusterClientStateOfApp(@PathVariable("app") String app) {
         if (StringUtil.isEmpty(app)) {
             return Result.ofFail(-1, "app cannot be null or empty");
         }
@@ -184,7 +187,7 @@ public class ClusterConfigController {
     }
 
     @GetMapping("/state/{app}")
-    public Result<List<ClusterUniversalStatePairVO>> apiGetClusterStateOfApp(@PathVariable String app) {
+    public Result<List<ClusterUniversalStatePairVO>> apiGetClusterStateOfApp(@PathVariable("app") String app) {
         if (StringUtil.isEmpty(app)) {
             return Result.ofFail(-1, "app cannot be null or empty");
         }

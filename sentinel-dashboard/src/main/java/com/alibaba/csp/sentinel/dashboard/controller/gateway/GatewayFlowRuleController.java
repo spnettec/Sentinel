@@ -53,15 +53,20 @@ public class GatewayFlowRuleController {
 
     private final Logger logger = LoggerFactory.getLogger(GatewayFlowRuleController.class);
 
-    @Autowired
-    private InMemGatewayFlowRuleStore repository;
+    private final InMemGatewayFlowRuleStore repository;
 
-    @Autowired
-    private SentinelApiClient sentinelApiClient;
+    private final SentinelApiClient sentinelApiClient;
+
+    public GatewayFlowRuleController(InMemGatewayFlowRuleStore repository, SentinelApiClient sentinelApiClient) {
+        this.repository = repository;
+        this.sentinelApiClient = sentinelApiClient;
+    }
 
     @GetMapping("/list.json")
     @AuthAction(AuthService.PrivilegeType.READ_RULE)
-    public Result<List<GatewayFlowRuleEntity>> queryFlowRules(String app, String ip, Integer port) {
+    public Result<List<GatewayFlowRuleEntity>> queryFlowRules(@RequestParam("app") String app,
+                                                              @RequestParam("ip") String ip,
+                                                              @RequestParam("port") Integer port) {
 
         if (StringUtil.isEmpty(app)) {
             return Result.ofFail(-1, "app can't be null or empty");

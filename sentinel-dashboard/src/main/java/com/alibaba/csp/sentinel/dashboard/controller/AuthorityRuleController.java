@@ -143,7 +143,7 @@ public class AuthorityRuleController {
 
     @PutMapping("/rule/{id}")
     @AuthAction(PrivilegeType.WRITE_RULE)
-    public Result<AuthorityRuleEntity> apiUpdateParamFlowRule(@PathVariable Long id,
+    public Result<AuthorityRuleEntity> apiUpdateParamFlowRule(@PathVariable("id") Long id,
                                                               @RequestBody AuthorityRuleEntity entity) {
         if (id == null || id <= 0) {
             return Result.ofFail(-1, "Invalid id");
@@ -173,7 +173,7 @@ public class AuthorityRuleController {
 
     @DeleteMapping("/rule/{id}")
     @AuthAction(PrivilegeType.DELETE_RULE)
-    public Result<Long> apiDeleteRule(@PathVariable Long id) {
+    public Result<Long> apiDeleteRule(@PathVariable("id") Long id) {
         if (id == null) {
             return Result.ofFail(-1, "id cannot be null");
         }

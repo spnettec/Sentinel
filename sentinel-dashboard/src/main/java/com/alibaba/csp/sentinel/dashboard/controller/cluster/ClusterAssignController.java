@@ -44,11 +44,14 @@ public class ClusterAssignController {
 
     private final Logger logger = LoggerFactory.getLogger(ClusterAssignController.class);
 
-    @Autowired
-    private ClusterAssignService clusterAssignService;
+    private final ClusterAssignService clusterAssignService;
+
+    public ClusterAssignController(ClusterAssignService clusterAssignService) {
+        this.clusterAssignService = clusterAssignService;
+    }
 
     @PostMapping("/all_server/{app}")
-    public Result<ClusterAppAssignResultVO> apiAssignAllClusterServersOfApp(@PathVariable String app,
+    public Result<ClusterAppAssignResultVO> apiAssignAllClusterServersOfApp(@PathVariable("app") String app,
                                                                             @RequestBody
                                                                                 ClusterAppFullAssignRequest assignRequest) {
         if (StringUtil.isEmpty(app)) {
@@ -68,7 +71,7 @@ public class ClusterAssignController {
     }
 
     @PostMapping("/single_server/{app}")
-    public Result<ClusterAppAssignResultVO> apiAssignSingleClusterServersOfApp(@PathVariable String app,
+    public Result<ClusterAppAssignResultVO> apiAssignSingleClusterServersOfApp(@PathVariable("app") String app,
                                                                                @RequestBody ClusterAppSingleServerAssignRequest assignRequest) {
         if (StringUtil.isEmpty(app)) {
             return Result.ofFail(-1, "app cannot be null or empty");
@@ -86,7 +89,7 @@ public class ClusterAssignController {
     }
 
     @PostMapping("/unbind_server/{app}")
-    public Result<ClusterAppAssignResultVO> apiUnbindClusterServersOfApp(@PathVariable String app,
+    public Result<ClusterAppAssignResultVO> apiUnbindClusterServersOfApp(@PathVariable("app") String app,
                                                                          @RequestBody Set<String> machineIds) {
         if (StringUtil.isEmpty(app)) {
             return Result.ofFail(-1, "app cannot be null or empty");

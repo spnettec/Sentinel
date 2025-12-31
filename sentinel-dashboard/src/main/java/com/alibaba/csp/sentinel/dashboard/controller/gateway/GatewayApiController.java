@@ -29,11 +29,9 @@ import com.alibaba.csp.sentinel.dashboard.repository.gateway.InMemApiDefinitionS
 import com.alibaba.csp.sentinel.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.servlet.http.HttpServletRequest;
 import java.util.*;
 
 import static com.alibaba.csp.sentinel.adapter.gateway.common.SentinelGatewayConstants.*;
@@ -50,15 +48,20 @@ public class GatewayApiController {
 
     private final Logger logger = LoggerFactory.getLogger(GatewayApiController.class);
 
-    @Autowired
-    private InMemApiDefinitionStore repository;
+    private final InMemApiDefinitionStore repository;
 
-    @Autowired
-    private SentinelApiClient sentinelApiClient;
+    private final SentinelApiClient sentinelApiClient;
+
+    public GatewayApiController(InMemApiDefinitionStore repository, SentinelApiClient sentinelApiClient) {
+        this.repository = repository;
+        this.sentinelApiClient = sentinelApiClient;
+    }
 
     @GetMapping("/list.json")
     @AuthAction(AuthService.PrivilegeType.READ_RULE)
-    public Result<List<ApiDefinitionEntity>> queryApis(String app, String ip, Integer port) {
+    public Result<List<ApiDefinitionEntity>> queryApis(@RequestParam("app") String app,
+                                                       @RequestParam("ip") String ip,
+                                                       @RequestParam("port") Integer port) {
 
         if (StringUtil.isEmpty(app)) {
             return Result.ofFail(-1, "app can't be null or empty");
@@ -82,7 +85,7 @@ public class GatewayApiController {
 
     @PostMapping("/new.json")
     @AuthAction(AuthService.PrivilegeType.WRITE_RULE)
-    public Result<ApiDefinitionEntity> addApi(HttpServletRequest request, @RequestBody AddApiReqVo reqVo) {
+    public Result<ApiDefinitionEntity> addApi(@RequestBody AddApiReqVo reqVo) {
 
         String app = reqVo.getApp();
         if (StringUtil.isBlank(app)) {

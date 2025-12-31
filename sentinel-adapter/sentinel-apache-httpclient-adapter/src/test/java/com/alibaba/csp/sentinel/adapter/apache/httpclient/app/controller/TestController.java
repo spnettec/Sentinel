@@ -31,7 +31,7 @@ public class TestController {
     }
 
     @RequestMapping("/httpclient/back/{id}")
-    public String back(@PathVariable String id) {
+    public String back(@PathVariable("id") String id) {
         return "Welcome Back! " + id;
     }
 }

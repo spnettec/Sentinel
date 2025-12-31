@@ -195,7 +195,7 @@ public class ParamFlowRuleController {
 
     @PutMapping("/rule/{id}")
     @AuthAction(AuthService.PrivilegeType.WRITE_RULE)
-    public Result<ParamFlowRuleEntity> apiUpdateParamFlowRule(@PathVariable Long id,
+    public Result<ParamFlowRuleEntity> apiUpdateParamFlowRule(@PathVariable("id") Long id,
                                                               @RequestBody ParamFlowRuleEntity entity) {
         if (id == null || id <= 0) {
             return Result.ofFail(-1, "Invalid id");
@@ -235,7 +235,7 @@ public class ParamFlowRuleController {
 
     @DeleteMapping("/rule/{id}")
     @AuthAction(PrivilegeType.DELETE_RULE)
-    public Result<Long> apiDeleteRule(@PathVariable Long id) {
+    public Result<Long> apiDeleteRule(@PathVariable("id") Long id) {
         if (id == null) {
             return Result.ofFail(-1, "id cannot be null");
         }

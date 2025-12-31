@@ -109,7 +109,7 @@ public class DegradeController {
 
     @PutMapping("/rule/{id}")
     @AuthAction(PrivilegeType.WRITE_RULE)
-    public Result<DegradeRuleEntity> apiUpdateRule(@PathVariable Long id,
+    public Result<DegradeRuleEntity> apiUpdateRule(@PathVariable("id") Long id,
                                                    @RequestBody DegradeRuleEntity entity) {
         if (id == null || id <= 0) {
             return Result.ofFail(-1, "id can't be null or negative");
@@ -143,7 +143,7 @@ public class DegradeController {
 
     @DeleteMapping("/rule/{id}")
     @AuthAction(PrivilegeType.DELETE_RULE)
-    public Result<Long> delete(@PathVariable Long id) {
+    public Result<Long> delete(@PathVariable("id") Long id) {
         if (id == null) {
             return Result.ofFail(-1, "id can't be null");
         }

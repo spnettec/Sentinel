@@ -68,10 +68,10 @@ public class ResourceController {
      * @return node statistics info.
      */
     @GetMapping("/machineResource.json")
-    public Result<List<ResourceVo>> fetchResourceChainListOfMachine(@RequestParam("ip") String ip,
-                                                                    @RequestParam("port") Integer port,
-                                                                    @RequestParam("type") String type,
-                                                                    @RequestParam("searchKey") String searchKey) {
+    public Result<List<ResourceVo>> fetchResourceChainListOfMachine(@RequestParam(value = "ip", required = false) String ip,
+                                                                    @RequestParam(value = "port",required = false) Integer port,
+                                                                    @RequestParam(value = "type",required = false) String type,
+                                                                    @RequestParam(value = "searchKey",required = false) String searchKey) {
         if (StringUtil.isEmpty(ip) || port == null) {
             return Result.ofFail(-1, "invalid param, give ip, port");
         }

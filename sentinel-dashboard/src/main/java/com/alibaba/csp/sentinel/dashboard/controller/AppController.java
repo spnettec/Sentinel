@@ -60,7 +60,7 @@ public class AppController {
     }
 
     @GetMapping(value = "/{app}/machines.json")
-    public Result<List<MachineInfoVo>> getMachinesByApp(@PathVariable String app) {
+    public Result<List<MachineInfoVo>> getMachinesByApp(@PathVariable("app") String app) {
         AppInfo appInfo = appManagement.getDetailApp(app);
         if (appInfo == null) {
             return Result.ofSuccess(null);
@@ -72,7 +72,7 @@ public class AppController {
     
     @RequestMapping(value = "/{app}/machine/remove.json")
     public Result<String> removeMachineById(
-            @PathVariable String app,
+            @PathVariable("app") String app,
             @RequestParam(name = "ip") String ip,
             @RequestParam(name = "port") int port) {
         AppInfo appInfo = appManagement.getDetailApp(app);
