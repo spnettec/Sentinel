@@ -14,8 +14,8 @@
     <artifactId>sentinel-datasource-eureka</artifactId>
 
     <properties>
-        <spring-boot.version>4.0.1</spring-boot.version>
-        <spring.cloud.eureka.version>5.0.0</spring.cloud.eureka.version>
+        <spring-boot.version>4.0.2</spring-boot.version>
+        <spring.cloud.eureka.version>5.0.1</spring.cloud.eureka.version>
     </properties>
 
 

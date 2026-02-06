@@ -48,7 +48,7 @@
         <!-- Test libs -->
         <junit.version>4.12</junit.version>
         <mockito.version>4.11.0</mockito.version>
-        <spring-boot.version>4.0.1</spring-boot.version>
+        <spring-boot.version>4.0.2</spring-boot.version>
         <byte-buddy.version>1.18.3</byte-buddy.version>
         <assertj.version>3.27.6</assertj.version>
         <awaitility.version>4.2.0</awaitility.version>
