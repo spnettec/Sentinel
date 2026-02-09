@@ -404,7 +404,7 @@ public class GatewayFlowRuleController {
 
     @PostMapping("/delete.json")
     @AuthAction(AuthService.PrivilegeType.DELETE_RULE)
-    public Result<Long> deleteFlowRule(Long id) {
+    public Result<Long> deleteFlowRule(@RequestParam("id")Long id) {
 
         if (id == null) {
             return Result.ofFail(-1, "id can't be null");

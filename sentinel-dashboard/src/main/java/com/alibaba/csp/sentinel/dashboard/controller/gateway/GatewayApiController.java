@@ -232,7 +232,7 @@ public class GatewayApiController {
     @PostMapping("/delete.json")
     @AuthAction(AuthService.PrivilegeType.DELETE_RULE)
 
-    public Result<Long> deleteApi(Long id) {
+    public Result<Long> deleteApi(@RequestParam("id") Long id) {
         if (id == null) {
             return Result.ofFail(-1, "id can't be null");
         }
