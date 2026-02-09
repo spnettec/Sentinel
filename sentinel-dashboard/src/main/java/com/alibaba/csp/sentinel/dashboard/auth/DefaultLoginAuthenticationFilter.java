@@ -51,13 +51,13 @@ public class DefaultLoginAuthenticationFilter implements LoginAuthenticationFilt
     /**
      * Some urls which needn't auth, such as /auth/login, /registry/machine and so on.
      */
-    @Value("#{'${auth.filter.exclude-urls}'.split(',')}")
+    @Value("#{'${auth.filter.exclude-urls:}'.split(',')}")
     private List<String> authFilterExcludeUrls;
 
     /**
      * Some urls with suffixes which needn't auth, such as htm, html, js and so on.
      */
-    @Value("#{'${auth.filter.exclude-url-suffixes}'.split(',')}")
+    @Value("#{'${auth.filter.exclude-url-suffixes:}'.split(',')}")
     private List<String> authFilterExcludeUrlSuffixes;
 
     /**
