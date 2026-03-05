@@ -20,6 +20,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import com.alibaba.csp.sentinel.util.TimeUtil;
 import org.junit.After;
@@ -84,6 +85,33 @@ public class ExceptionCircuitBreakerTest extends AbstractTimeBasedTest {
             assertTrue(entryAndSleepFor(mocked, resource, 100));
             assertTrue(entryWithErrorIfPresent(mocked, resource, new IllegalArgumentException()));
             assertTrue(entryAndSleepFor(mocked, resource, 100));
+        }
+    }
+
+    @Test
+    public void testMaxErrorRatioThreshold() {
+        try (MockedStatic<TimeUtil> mocked = super.mockTimeUtil()) {
+            String resource = "testMaxErrorRatioThreshold";
+            DegradeRule rule = new DegradeRule("resource")
+                    .setCount(1)
+                    .setGrade(RuleConstant.DEGRADE_GRADE_EXCEPTION_RATIO)
+                    .setMinRequestAmount(3)
+                    .setStatIntervalMs(5000)
+                    .setTimeWindow(5);
+            rule.setResource(resource);
+            DegradeRuleManager.loadRules(Collections.singletonList(rule));
+
+            assertTrue(entryWithErrorIfPresent(mocked, resource, new RuntimeException()));
+            assertTrue(entryWithErrorIfPresent(mocked, resource, new RuntimeException()));
+            assertTrue(entryWithErrorIfPresent(mocked, resource, new RuntimeException()));
+
+            // should be blocked, cause 3/3 requests' rt is bigger than max rt.
+            assertFalse(entryWithErrorIfPresent(mocked, resource, new RuntimeException()));
+            assertFalse(entryWithErrorIfPresent(mocked, resource, new RuntimeException()));
+
+            sleep(mocked, 5000);
+
+            assertTrue(entryWithErrorIfPresent(mocked, resource, new RuntimeException()));
         }
     }
 }
