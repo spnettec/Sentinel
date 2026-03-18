@@ -15,15 +15,26 @@
  */
 package com.alibaba.csp.sentinel.adapter.apache.httpclient.extractor;
 
-import org.apache.http.client.methods.HttpRequestWrapper;
+import org.apache.hc.core5.http.ClassicHttpRequest;
 
 /**
+ * Apache HttpClient 5 默认资源名称提取器实现
+ *
  * @author zhaoyuguang
+ * @author modified for HttpClient 5
  */
 public class DefaultApacheHttpClientResourceExtractor implements ApacheHttpClientResourceExtractor {
 
     @Override
-    public String extractor(HttpRequestWrapper request) {
-        return request.getRequestLine().getUri();
+    public String extractor(ClassicHttpRequest request) {
+        // 获取请求的 URI 路径
+        String path = request.getPath();
+
+        // 如果路径为空，返回空字符串
+        if (path == null) {
+            return "";
+        }
+
+        return path;
     }
 }

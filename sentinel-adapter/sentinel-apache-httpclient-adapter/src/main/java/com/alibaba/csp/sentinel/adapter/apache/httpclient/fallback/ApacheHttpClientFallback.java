@@ -16,18 +16,47 @@
 package com.alibaba.csp.sentinel.adapter.apache.httpclient.fallback;
 
 import com.alibaba.csp.sentinel.slots.block.BlockException;
-import org.apache.http.HttpException;
-import org.apache.http.HttpRequest;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpRequestWrapper;
-import org.apache.http.protocol.HttpContext;
+import org.apache.hc.client5.http.classic.ExecChain;
+import org.apache.hc.core5.http.ClassicHttpRequest;
+import org.apache.hc.core5.http.ClassicHttpResponse;
+import org.apache.hc.core5.http.HttpException;
 
 import java.io.IOException;
 
 /**
+ * Apache HttpClient 5 限流降级回退接口
+ *
  * @author zhaoyuguang
+ * @author modified for HttpClient 5
  */
+@FunctionalInterface
 public interface ApacheHttpClientFallback {
 
-    CloseableHttpResponse handle(HttpRequestWrapper request, BlockException e);
+    /**
+     * 处理被限流的请求
+     *
+     * @param request  原始的 HTTP 请求
+     * @param scope    执行链作用域，包含路由、客户端上下文等信息
+     * @param ex       限流异常
+     * @return 自定义的响应
+     * @throws IOException   IO异常
+     * @throws HttpException HTTP异常
+     */
+    ClassicHttpResponse handle(ClassicHttpRequest request,
+                               ExecChain.Scope scope,
+                               BlockException ex) throws IOException, HttpException;
+
+    /**
+     * 简化的处理方法，如果不需使用 ExecChain.Scope
+     *
+     * @param request 原始的 HTTP 请求
+     * @param ex      限流异常
+     * @return 自定义的响应
+     * @throws IOException   IO异常
+     * @throws HttpException HTTP异常
+     */
+    default ClassicHttpResponse handle(ClassicHttpRequest request,
+                                       BlockException ex) throws IOException, HttpException {
+        return handle(request, null, ex);
+    }
 }

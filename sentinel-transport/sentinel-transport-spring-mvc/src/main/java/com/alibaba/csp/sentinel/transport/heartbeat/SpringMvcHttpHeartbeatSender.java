@@ -28,13 +28,16 @@ import com.alibaba.csp.sentinel.util.AppNameUtil;
 import com.alibaba.csp.sentinel.util.HostNameUtil;
 import com.alibaba.csp.sentinel.util.PidUtil;
 import com.alibaba.csp.sentinel.util.StringUtil;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.impl.client.CloseableHttpClient;
+
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.core5.http.HttpStatus;
+import org.apache.hc.core5.net.URIBuilder;
+import org.apache.hc.core5.util.Timeout;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Eric Zhao
@@ -46,14 +49,15 @@ public class SpringMvcHttpHeartbeatSender implements HeartbeatSender {
 
     private final CloseableHttpClient client;
 
-    private static final int OK_STATUS = 200;
+    private static final int OK_STATUS = HttpStatus.SC_OK;
 
     private final int timeoutMs = 3000;
+
+    // RequestConfig 用于请求级别的超时配置
     private final RequestConfig requestConfig = RequestConfig.custom()
-        .setConnectionRequestTimeout(timeoutMs)
-        .setConnectTimeout(timeoutMs)
-        .setSocketTimeout(timeoutMs)
-        .build();
+            .setConnectionRequestTimeout(Timeout.of(timeoutMs, TimeUnit.MILLISECONDS))
+            .setResponseTimeout(Timeout.of(timeoutMs, TimeUnit.MILLISECONDS))
+            .build();
 
     private final Protocol consoleProtocol;
     private final String consoleHost;
@@ -61,8 +65,8 @@ public class SpringMvcHttpHeartbeatSender implements HeartbeatSender {
 
     public SpringMvcHttpHeartbeatSender() {
         List<Endpoint> dashboardList = TransportConfig.getConsoleServerList();
-        if (dashboardList == null || dashboardList.isEmpty()) {
-            RecordLog.info("[HttpHeartbeatSender] No dashboard server available");
+        if (dashboardList.isEmpty()) {
+            RecordLog.info("[SpringMvcHttpHeartbeatSender] No dashboard server available");
             consoleProtocol = Protocol.HTTP;
             consoleHost = null;
             consolePort = -1;
@@ -70,9 +74,9 @@ public class SpringMvcHttpHeartbeatSender implements HeartbeatSender {
             consoleProtocol = dashboardList.get(0).getProtocol();
             consoleHost = dashboardList.get(0).getHost();
             consolePort = dashboardList.get(0).getPort();
-            RecordLog.info("[HttpHeartbeatSender] Dashboard address parsed: <{}:{}>", consoleHost, consolePort);
+            RecordLog.info("[SpringMvcHttpHeartbeatSender] Dashboard address parsed: <{}:{}>", consoleHost, consolePort);
         }
-        this.client = HttpClientsFactory.getHttpClientsByProtocol(consoleProtocol);
+        this.client = HttpClientsFactory.getHttpClientsByProtocol(consoleProtocol, timeoutMs);
     }
 
     @Override
@@ -80,32 +84,37 @@ public class SpringMvcHttpHeartbeatSender implements HeartbeatSender {
         if (StringUtil.isEmpty(consoleHost)) {
             return false;
         }
+
+        // 构建 URI
         URIBuilder uriBuilder = new URIBuilder();
-        uriBuilder.setScheme(consoleProtocol.getProtocol()).setHost(consoleHost).setPort(consolePort)
-            .setPath(TransportConfig.getHeartbeatApiPath())
-            .setParameter("app", AppNameUtil.getAppName())
-            .setParameter("app_type", String.valueOf(SentinelConfig.getAppType()))
-            .setParameter("v", Constants.SENTINEL_VERSION)
-            .setParameter("version", String.valueOf(System.currentTimeMillis()))
-            .setParameter("hostname", HostNameUtil.getHostName())
-            .setParameter("ip", TransportConfig.getHeartbeatClientIp())
-            .setParameter("port", TransportConfig.getPort())
-            .setParameter("pid", String.valueOf(PidUtil.getPid()));
+        uriBuilder.setScheme(consoleProtocol.getProtocol())
+                .setHost(consoleHost)
+                .setPort(consolePort)
+                .setPath(TransportConfig.getHeartbeatApiPath())
+                .setParameter("app", AppNameUtil.getAppName())
+                .setParameter("app_type", String.valueOf(SentinelConfig.getAppType()))
+                .setParameter("v", Constants.SENTINEL_VERSION)
+                .setParameter("version", String.valueOf(System.currentTimeMillis()))
+                .setParameter("hostname", HostNameUtil.getHostName())
+                .setParameter("ip", TransportConfig.getHeartbeatClientIp())
+                .setParameter("port", String.valueOf(TransportConfig.getPort()))
+                .setParameter("pid", String.valueOf(PidUtil.getPid()));
 
         HttpGet request = new HttpGet(uriBuilder.build());
         request.setConfig(requestConfig);
-        // Send heartbeat request.
-        CloseableHttpResponse response = client.execute(request);
-        response.close();
-        int statusCode = response.getStatusLine().getStatusCode();
-        if (statusCode == OK_STATUS) {
-            return true;
-        } else if (clientErrorCode(statusCode) || serverErrorCode(statusCode)) {
-            RecordLog.warn("[HttpHeartbeatSender] Failed to send heartbeat to "
-                + consoleHost + ":" + consolePort + ", http status code: " + statusCode);
-        }
 
-        return false;
+        // 使用 HttpClient 5 的函数式方式执行请求，自动管理资源
+        return client.execute(request, response -> {
+            int statusCode = response.getCode();
+            if (statusCode == OK_STATUS) {
+                return true;
+            } else if (clientErrorCode(statusCode) || serverErrorCode(statusCode)) {
+                RecordLog.warn("[SpringMvcHttpHeartbeatSender] Failed to send heartbeat to "
+                        + consoleHost + ":" + consolePort + ", http status code: " + statusCode +
+                        ", reason: " + response.getReasonPhrase());
+            }
+            return false;
+        });
     }
 
     @Override

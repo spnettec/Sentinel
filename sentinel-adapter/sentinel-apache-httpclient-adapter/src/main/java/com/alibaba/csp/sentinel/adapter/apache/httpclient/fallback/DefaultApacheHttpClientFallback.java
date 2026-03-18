@@ -17,21 +17,32 @@ package com.alibaba.csp.sentinel.adapter.apache.httpclient.fallback;
 
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.csp.sentinel.slots.block.SentinelRpcException;
-import org.apache.http.HttpException;
-import org.apache.http.HttpRequest;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpRequestWrapper;
-import org.apache.http.protocol.HttpContext;
+import org.apache.hc.client5.http.classic.ExecChain;
+import org.apache.hc.core5.http.ClassicHttpRequest;
+import org.apache.hc.core5.http.ClassicHttpResponse;
+import org.apache.hc.core5.http.HttpException;
 
 import java.io.IOException;
 
 /**
+ * Apache HttpClient 5 默认限流降级回退实现
+ *
  * @author zhaoyuguang
+ * @author modified for HttpClient 5
  */
 public class DefaultApacheHttpClientFallback implements ApacheHttpClientFallback {
 
     @Override
-    public CloseableHttpResponse handle(HttpRequestWrapper request, BlockException e) {
+    public ClassicHttpResponse handle(ClassicHttpRequest request,
+                                      ExecChain.Scope scope,
+                                      BlockException e) {
+        // Just wrap and throw the exception.
+        throw new SentinelRpcException(e);
+    }
+
+    @Override
+    public ClassicHttpResponse handle(ClassicHttpRequest request,
+                                      BlockException e) {
         // Just wrap and throw the exception.
         throw new SentinelRpcException(e);
     }

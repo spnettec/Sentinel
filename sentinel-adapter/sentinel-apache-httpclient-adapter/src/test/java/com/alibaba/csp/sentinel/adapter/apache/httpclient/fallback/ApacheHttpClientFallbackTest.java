@@ -18,7 +18,10 @@ package com.alibaba.csp.sentinel.adapter.apache.httpclient.fallback;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.csp.sentinel.slots.block.SentinelRpcException;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
+import org.apache.hc.core5.http.HttpException;
 import org.junit.Test;
+
+import java.io.IOException;
 
 /**
  * @author zhaoyuguang
@@ -26,7 +29,7 @@ import org.junit.Test;
 public class ApacheHttpClientFallbackTest {
 
     @Test(expected = SentinelRpcException.class)
-    public void testDefaultOkHttpFallback() {
+    public void testDefaultOkHttpFallback() throws HttpException, IOException {
         BlockException e = new FlowException("xxx");
         ApacheHttpClientFallback fallback = new DefaultApacheHttpClientFallback();
         fallback.handle(null, e);

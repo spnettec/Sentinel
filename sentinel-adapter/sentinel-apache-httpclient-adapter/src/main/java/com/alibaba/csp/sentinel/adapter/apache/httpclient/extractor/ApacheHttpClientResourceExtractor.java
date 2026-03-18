@@ -15,12 +15,21 @@
  */
 package com.alibaba.csp.sentinel.adapter.apache.httpclient.extractor;
 
-import org.apache.http.client.methods.HttpRequestWrapper;
+import org.apache.hc.core5.http.ClassicHttpRequest;
 
 /**
+ * Apache HttpClient 5 资源名称提取器接口
+ *
  * @author zhaoyuguang
+ * @author modified for HttpClient 5
  */
 public interface ApacheHttpClientResourceExtractor {
 
-    String extractor(HttpRequestWrapper request);
+    /**
+     * 从 HTTP 请求中提取 Sentinel 资源名称
+     *
+     * @param request HttpClient 5 的 ClassicHttpRequest 对象
+     * @return 资源名称字符串
+     */
+    String extractor(ClassicHttpRequest request);
 }

@@ -14,9 +14,9 @@
     <artifactId>sentinel-transport-spring-mvc</artifactId>
 
     <properties>
-        <apache.httpclient.version>4.5.14</apache.httpclient.version>
+        <httpclient5.version>5.6</httpclient5.version>
         <servlet.api.version>6.0.0</servlet.api.version>
-        <spring.version>7.0.3</spring.version>
+        <spring.version>7.0.5</spring.version>
     </properties>
 
     <dependencies>
@@ -43,9 +43,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>${apache.httpclient.version}</version>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
+            <version>${httpclient5.version}</version>
         </dependency>
     </dependencies>
 

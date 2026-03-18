@@ -19,58 +19,84 @@ import com.alibaba.csp.sentinel.*;
 import com.alibaba.csp.sentinel.adapter.apache.httpclient.config.SentinelApacheHttpClientConfig;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.csp.sentinel.util.StringUtil;
-import org.apache.http.HttpException;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpExecutionAware;
-import org.apache.http.client.methods.HttpRequestWrapper;
-import org.apache.http.client.protocol.HttpClientContext;
-import org.apache.http.conn.routing.HttpRoute;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.execchain.ClientExecChain;
+
+import org.apache.hc.client5.http.classic.ExecChain;
+import org.apache.hc.client5.http.classic.ExecChainHandler;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
+import org.apache.hc.core5.http.ClassicHttpRequest;
+import org.apache.hc.core5.http.ClassicHttpResponse;
+import org.apache.hc.core5.http.HttpException;
 
 import java.io.IOException;
 
 /**
+ * Sentinel Apache HttpClient 5 适配器
+ *
  * @author zhaoyuguang
+ * @author modified for HttpClient 5
  */
 public class SentinelApacheHttpClientBuilder extends HttpClientBuilder {
 
     private final SentinelApacheHttpClientConfig config;
 
-    public SentinelApacheHttpClientBuilder(){
+    public SentinelApacheHttpClientBuilder() {
         this.config = new SentinelApacheHttpClientConfig();
     }
 
-    public SentinelApacheHttpClientBuilder(SentinelApacheHttpClientConfig config){
+    public SentinelApacheHttpClientBuilder(SentinelApacheHttpClientConfig config) {
         this.config = config;
     }
 
     @Override
-    protected ClientExecChain decorateMainExec(final ClientExecChain mainExec) {
-        return new ClientExecChain() {
-            @Override
-            public CloseableHttpResponse execute(HttpRoute route, HttpRequestWrapper request,
-                                                 HttpClientContext clientContext, HttpExecutionAware execAware)
-                    throws IOException, HttpException {
-                Entry entry = null;
-                try {
-                    String name = config.getExtractor().extractor(request);
-                    if (!StringUtil.isEmpty(config.getPrefix())) {
-                        name = config.getPrefix() + name;
-                    }
-                    entry = SphU.entry(name, ResourceTypeConstants.COMMON_WEB, EntryType.OUT);
-                    return mainExec.execute(route, request, clientContext, execAware);
-                } catch (BlockException e) {
-                    return config.getFallback().handle(request, e);
-                } catch (Throwable t) {
+    public CloseableHttpClient build() {
+        // 添加 Sentinel 执行链拦截器作为第一个拦截器，确保能捕获所有请求
+        addExecInterceptorFirst("sentinel", new SentinelExecChainHandler());
+        return super.build();
+    }
+
+    /**
+     * Sentinel 执行链处理器，用于拦截和处理 HTTP 请求
+     */
+    private class SentinelExecChainHandler implements ExecChainHandler {
+
+        @Override
+        public ClassicHttpResponse execute(
+                ClassicHttpRequest request,
+                ExecChain.Scope scope,
+                ExecChain chain) throws IOException, HttpException {
+
+            Entry entry = null;
+            try {
+                // 提取资源名称
+                String name = config.getExtractor().extractor(request);
+                if (!StringUtil.isEmpty(config.getPrefix())) {
+                    name = config.getPrefix() + name;
+                }
+
+                // 定义 Sentinel 入口
+                entry = SphU.entry(name, ResourceTypeConstants.COMMON_WEB, EntryType.OUT);
+
+                // 继续执行链
+                return chain.proceed(request, scope);
+
+            } catch (BlockException e) {
+                // 处理被限流的请求
+                return config.getFallback().handle(request, scope, e);
+
+            } catch (Throwable t) {
+                // 记录异常
+                if (entry != null) {
                     Tracer.traceEntry(t, entry);
-                    throw t;
-                } finally {
-                    if (entry != null) {
-                        entry.exit();
-                    }
+                }
+                throw t;
+
+            } finally {
+                // 退出 Sentinel 入口
+                if (entry != null) {
+                    entry.exit();
                 }
             }
-        };
+        }
     }
 }
