@@ -7,6 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpRequest;
 
 import java.net.URI;
+import java.util.Map;
 
 import static org.junit.Assert.assertSame;
 
@@ -33,6 +34,12 @@ public class DefaultRestClientFallbackTest {
 			}
 
 			@Override
+			public Map<String, Object> getAttributes() {
+                Map<String, Object> stringObjectMap = new java.util.HashMap<>();
+                return stringObjectMap;
+			}
+
+			@Override
 			public org.springframework.http.HttpHeaders getHeaders() {
 				return new org.springframework.http.HttpHeaders();
 			}
@@ -55,6 +62,12 @@ public class DefaultRestClientFallbackTest {
 			@Override
 			public URI getURI() {
 				return URI.create("https://httpbin.org/get");
+			}
+
+			@Override
+			public Map<String, Object> getAttributes() {
+                Map<String, Object> stringObjectMap = new java.util.HashMap<>();
+                return stringObjectMap;
 			}
 
 			@Override
