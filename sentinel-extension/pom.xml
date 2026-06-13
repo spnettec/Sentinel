@@ -16,15 +16,8 @@
     <modules>
         <module>sentinel-datasource-extension</module>
         <module>sentinel-datasource-nacos</module>
-        <module>sentinel-datasource-zookeeper</module>
-        <module>sentinel-datasource-redis</module>
         <module>sentinel-annotation-aspectj</module>
         <module>sentinel-parameter-flow-control</module>
-        <module>sentinel-datasource-spring-cloud-config</module>
-        <module>sentinel-datasource-etcd</module>
-        <module>sentinel-datasource-eureka</module>
-        <module>sentinel-metric-exporter</module>
-        <module>sentinel-prometheus-metric-exporter</module>
     </modules>
 
 </project>
