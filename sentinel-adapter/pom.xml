@@ -17,7 +17,6 @@
 
     <modules>
         <module>sentinel-web-servlet</module>
-        <module>sentinel-apache-httpclient5-adapter</module>
         <module>sentinel-reactor-adapter</module>
         <module>sentinel-api-gateway-adapter-common</module>
         <module>sentinel-spring-cloud-gateway-v6x-adapter</module>

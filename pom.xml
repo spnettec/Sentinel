@@ -76,8 +76,6 @@
         <module>sentinel-adapter</module>
         <module>sentinel-logging</module>
 
-        <module>sentinel-dashboard</module>
-
     </modules>
 
     <dependencyManagement>
@@ -99,11 +97,6 @@
             </dependency>
             <dependency>
                <groupId>com.github.heyoulin.Sentinel</groupId>
-                <artifactId>sentinel-annotation-cdi-interceptor</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-               <groupId>com.github.heyoulin.Sentinel</groupId>
                 <artifactId>sentinel-parameter-flow-control</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -119,32 +112,7 @@
             </dependency>
             <dependency>
                <groupId>com.github.heyoulin.Sentinel</groupId>
-                <artifactId>sentinel-datasource-zookeeper</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-               <groupId>com.github.heyoulin.Sentinel</groupId>
-                <artifactId>sentinel-datasource-apollo</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-               <groupId>com.github.heyoulin.Sentinel</groupId>
-                <artifactId>sentinel-datasource-etcd</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-               <groupId>com.github.heyoulin.Sentinel</groupId>
                 <artifactId>sentinel-transport-simple-http</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-               <groupId>com.github.heyoulin.Sentinel</groupId>
-                <artifactId>sentinel-transport-netty-http</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-               <groupId>com.github.heyoulin.Sentinel</groupId>
-                <artifactId>sentinel-transport-spring-mvc</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -152,12 +120,6 @@
                 <artifactId>sentinel-transport-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-               <groupId>com.github.heyoulin.Sentinel</groupId>
-                <artifactId>sentinel-cluster-common-default</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
             <dependency>
                 <groupId>com.github.heyoulin.Sentinel</groupId>
                 <artifactId>sentinel-web-adapter-common</artifactId>
@@ -167,12 +129,6 @@
             <dependency>
                <groupId>com.github.heyoulin.Sentinel</groupId>
                 <artifactId>sentinel-adapter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-               <groupId>com.github.heyoulin.Sentinel</groupId>
-                <artifactId>sentinel-metric-exporter</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
