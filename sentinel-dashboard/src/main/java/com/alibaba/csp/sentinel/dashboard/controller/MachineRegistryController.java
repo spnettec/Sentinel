@@ -21,7 +21,7 @@ import com.alibaba.csp.sentinel.util.StringUtil;
 import com.alibaba.csp.sentinel.dashboard.discovery.MachineInfo;
 import com.alibaba.csp.sentinel.dashboard.domain.Result;
 
-import org.apache.http.conn.util.InetAddressUtils;
+import org.apache.hc.core5.net.InetAddressUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

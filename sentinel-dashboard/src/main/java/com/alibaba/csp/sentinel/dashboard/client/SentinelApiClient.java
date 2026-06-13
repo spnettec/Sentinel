@@ -62,23 +62,18 @@ import com.alibaba.csp.sentinel.dashboard.domain.cluster.config.ServerFlowConfig
 import com.alibaba.csp.sentinel.dashboard.domain.cluster.config.ServerTransportConfig;
 import com.alibaba.csp.sentinel.dashboard.util.VersionUtils;
 
-import org.apache.http.Consts;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.concurrent.FutureCallback;
-import org.apache.http.conn.util.InetAddressUtils;
-import org.apache.http.entity.ContentType;
-import org.apache.http.impl.client.DefaultRedirectStrategy;
-import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
-import org.apache.http.impl.nio.client.HttpAsyncClients;
-import org.apache.http.impl.nio.reactor.IOReactorConfig;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
+import org.apache.hc.client5.http.async.methods.SimpleHttpRequest;
+import org.apache.hc.client5.http.async.methods.SimpleHttpResponse;
+import org.apache.hc.client5.http.config.ConnectionConfig;
+import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
+import org.apache.hc.client5.http.impl.async.HttpAsyncClients;
+import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManagerBuilder;
+import org.apache.hc.core5.concurrent.FutureCallback;
+import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.Method;
+import org.apache.hc.core5.net.InetAddressUtils;
+import org.apache.hc.core5.reactor.IOReactorConfig;
+import org.apache.hc.core5.util.Timeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,7 +91,7 @@ public class SentinelApiClient {
 
     private static final Charset DEFAULT_CHARSET = Charset.forName(SentinelConfig.charset());
     private static final String HTTP_HEADER_CONTENT_TYPE = "Content-Type";
-    private static final String HTTP_HEADER_CONTENT_TYPE_URLENCODED = ContentType.create(URLEncodedUtils.CONTENT_TYPE).toString();
+    private static final String HTTP_HEADER_CONTENT_TYPE_URLENCODED = ContentType.APPLICATION_FORM_URLENCODED.getMimeType();
 
     private static final String RESOURCE_URL_PATH = "jsonTree";
     private static final String CLUSTER_NODE_PATH = "clusterNode";
@@ -136,14 +131,21 @@ public class SentinelApiClient {
     private AppManagement appManagement;
 
     public SentinelApiClient() {
-        IOReactorConfig ioConfig = IOReactorConfig.custom().setConnectTimeout(3000).setSoTimeout(10000)
+        IOReactorConfig ioConfig = IOReactorConfig.custom()
             .setIoThreadCount(Runtime.getRuntime().availableProcessors() * 2).build();
-        httpClient = HttpAsyncClients.custom().setRedirectStrategy(new DefaultRedirectStrategy() {
-            @Override
-            protected boolean isRedirectable(final String method) {
-                return false;
-            }
-        }).setMaxConnTotal(4000).setMaxConnPerRoute(1000).setDefaultIOReactorConfig(ioConfig).build();
+        ConnectionConfig connectionConfig = ConnectionConfig.custom()
+            .setConnectTimeout(Timeout.ofMilliseconds(3000))
+            .setSocketTimeout(Timeout.ofMilliseconds(10000))
+            .build();
+        httpClient = HttpAsyncClients.custom()
+            .disableRedirectHandling()
+            .setIOReactorConfig(ioConfig)
+            .setConnectionManager(PoolingAsyncClientConnectionManagerBuilder.create()
+                .setMaxConnTotal(4000)
+                .setMaxConnPerRoute(1000)
+                .setDefaultConnectionConfig(connectionConfig)
+                .build())
+            .build();
         httpClient.start();
     }
 
@@ -179,7 +181,7 @@ public class SentinelApiClient {
                 .orElse(false);
     }
     
-    private StringBuilder queryString(Map<String, String> params) {
+    private static StringBuilder queryString(Map<String, String> params) {
         StringBuilder queryStringBuilder = new StringBuilder();
         for (Entry<String, String> entry : params.entrySet()) {
             if (StringUtil.isEmpty(entry.getValue())) {
@@ -198,29 +200,27 @@ public class SentinelApiClient {
     }
     
     /**
-     * Build an `HttpUriRequest` in POST way.
+     * Build an HTTP request in POST way.
      * 
      * @param url
      * @param params
      * @param supportEnhancedContentType see {@link #isSupportEnhancedContentType(String, String, int)}
      * @return
      */
-    protected static HttpUriRequest postRequest(String url, Map<String, String> params, boolean supportEnhancedContentType) {
-        HttpPost httpPost = new HttpPost(url);
+    protected static SimpleHttpRequest postRequest(String url, Map<String, String> params, boolean supportEnhancedContentType) {
+        SimpleHttpRequest httpPost = SimpleHttpRequest.create(Method.POST.name(), url);
         if (params != null && params.size() > 0) {
-            List<NameValuePair> list = new ArrayList<>(params.size());
-            for (Entry<String, String> entry : params.entrySet()) {
-                list.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
-            }
-            httpPost.setEntity(new UrlEncodedFormEntity(list, Consts.UTF_8));
-            if (!supportEnhancedContentType) {
-                httpPost.setHeader(HTTP_HEADER_CONTENT_TYPE, HTTP_HEADER_CONTENT_TYPE_URLENCODED);
-            }
+            ContentType contentType = supportEnhancedContentType
+                    ? ContentType.APPLICATION_FORM_URLENCODED.withCharset(DEFAULT_CHARSET)
+                    : ContentType.APPLICATION_FORM_URLENCODED;
+            httpPost.setBody(queryString(params).toString(), contentType);
+            httpPost.setHeader(HTTP_HEADER_CONTENT_TYPE,
+                    supportEnhancedContentType ? contentType.toString() : HTTP_HEADER_CONTENT_TYPE_URLENCODED);
         }
         return httpPost;
     }
     
-    private String urlEncode(String str) {
+    private static String urlEncode(String str) {
         try {
             return URLEncoder.encode(str, DEFAULT_CHARSET.name());
         } catch (UnsupportedEncodingException e) {
@@ -229,17 +229,9 @@ public class SentinelApiClient {
         }
     }
     
-    private String getBody(HttpResponse response) throws Exception {
-        Charset charset = null;
-        try {
-            String contentTypeStr = response.getFirstHeader(HTTP_HEADER_CONTENT_TYPE).getValue();
-            if (StringUtil.isNotEmpty(contentTypeStr)) {
-                ContentType contentType = ContentType.parse(contentTypeStr);
-                charset = contentType.getCharset();
-            }
-        } catch (Exception ignore) {
-        }
-        return EntityUtils.toString(response.getEntity(), charset != null ? charset : DEFAULT_CHARSET);
+    private String getBody(SimpleHttpResponse response) {
+        String body = response.getBodyText();
+        return body == null ? "" : body;
     }
     
     /**
@@ -307,7 +299,7 @@ public class SentinelApiClient {
                 }
                 urlBuilder.append(queryString(params));
             }
-            return executeCommand(new HttpGet(urlBuilder.toString()));
+            return executeCommand(SimpleHttpRequest.create(Method.GET.name(), urlBuilder.toString()));
         } else {
             // Using POST
             return executeCommand(
@@ -315,19 +307,19 @@ public class SentinelApiClient {
         }
     }
     
-    private CompletableFuture<String> executeCommand(HttpUriRequest request) {
+    private CompletableFuture<String> executeCommand(SimpleHttpRequest request) {
         CompletableFuture<String> future = new CompletableFuture<>();
-        httpClient.execute(request, new FutureCallback<HttpResponse>() {
+        httpClient.execute(request, new FutureCallback<SimpleHttpResponse>() {
             @Override
-            public void completed(final HttpResponse response) {
-                int statusCode = response.getStatusLine().getStatusCode();
+            public void completed(final SimpleHttpResponse response) {
+                int statusCode = response.getCode();
                 try {
                     String value = getBody(response);
                     if (isSuccess(statusCode)) {
                         future.complete(value);
                     } else {
                         if (isCommandNotFound(statusCode, value)) {
-                            future.completeExceptionally(new CommandNotFoundException(request.getURI().getPath()));
+                            future.completeExceptionally(new CommandNotFoundException(request.getPath()));
                         } else {
                             future.completeExceptionally(new CommandFailedException(value));
                         }
@@ -335,14 +327,14 @@ public class SentinelApiClient {
 
                 } catch (Exception ex) {
                     future.completeExceptionally(ex);
-                    logger.error("HTTP request failed: {}", request.getURI().toString(), ex);
+                    logger.error("HTTP request failed: {}", request.getRequestUri(), ex);
                 }
             }
 
             @Override
             public void failed(final Exception ex) {
                 future.completeExceptionally(ex);
-                logger.error("HTTP request failed: {}", request.getURI().toString(), ex);
+                logger.error("HTTP request failed: {}", request.getRequestUri(), ex);
             }
 
             @Override

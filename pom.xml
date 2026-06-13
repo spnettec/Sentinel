@@ -76,6 +76,8 @@
         <module>sentinel-adapter</module>
         <module>sentinel-logging</module>
 
+        <module>sentinel-dashboard</module>
+
     </modules>
 
     <dependencyManagement>
@@ -129,6 +131,12 @@
             <dependency>
                <groupId>com.github.heyoulin.Sentinel</groupId>
                 <artifactId>sentinel-adapter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+               <groupId>com.github.heyoulin.Sentinel</groupId>
+                <artifactId>sentinel-dashboard</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
