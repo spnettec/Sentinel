@@ -40,7 +40,7 @@
     </issueManagement>
 
     <properties>
-        <revision>2.0.10.B</revision>
+        <revision>2.0.10.1.B</revision>
         <!-- Compile libs -->
         <fastjson2.version>2.0.62</fastjson2.version>
         <jakarta.annotation-api.version>2.1.1</jakarta.annotation-api.version>
