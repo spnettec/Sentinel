@@ -24,6 +24,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.util.AntPathMatcher;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -52,13 +53,15 @@ public class DefaultLoginAuthenticationFilter implements LoginAuthenticationFilt
      * Some urls which needn't auth, such as /auth/login, /registry/machine and so on.
      */
     @Value("#{'${auth.filter.exclude-urls:}'.split(',')}")
-    private List<String> authFilterExcludeUrls;
+    private List<String> authFilterExcludeUrls = Arrays.asList("/", "/auth/login", "/auth/logout", "/registry/machine",
+        "/version");
 
     /**
      * Some urls with suffixes which needn't auth, such as htm, html, js and so on.
      */
     @Value("#{'${auth.filter.exclude-url-suffixes:}'.split(',')}")
-    private List<String> authFilterExcludeUrlSuffixes;
+    private List<String> authFilterExcludeUrlSuffixes = Arrays.asList("htm", "html", "js", "css", "map", "ico", "ttf",
+        "woff", "woff2", "png");
 
     /**
      * Authentication using AuthService interface.
