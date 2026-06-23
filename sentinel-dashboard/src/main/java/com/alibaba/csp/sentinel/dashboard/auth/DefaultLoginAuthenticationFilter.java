@@ -54,7 +54,7 @@ public class DefaultLoginAuthenticationFilter implements LoginAuthenticationFilt
      */
     @Value("#{'${auth.filter.exclude-urls:}'.split(',')}")
     private List<String> authFilterExcludeUrls = Arrays.asList("/", "/auth/login", "/auth/logout", "/registry/machine",
-        "/version");
+        "/version", "/actuator/**");
 
     /**
      * Some urls with suffixes which needn't auth, such as htm, html, js and so on.
