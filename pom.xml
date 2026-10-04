@@ -75,7 +75,6 @@
         <module>sentinel-transport</module>
         <module>sentinel-adapter</module>
         <module>sentinel-logging</module>
-
         <module>sentinel-dashboard</module>
 
     </modules>
