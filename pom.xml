@@ -43,13 +43,13 @@
         <revision>2.0.10.1.B</revision>
         <!-- Compile libs -->
         <fastjson2.version>2.0.62</fastjson2.version>
-        <jakarta.annotation-api.version>2.1.1</jakarta.annotation-api.version>
+        <jakarta.annotation-api.version>2.1.2</jakarta.annotation-api.version>
 
         <!-- Test libs -->
         <junit.version>4.13.1</junit.version>
         <mockito.version>4.11.0</mockito.version>
-        <spring-boot.version>4.1.0</spring-boot.version>
-        <byte-buddy.version>1.18.7</byte-buddy.version>
+        <spring-boot.version>4.1.1</spring-boot.version>
+        <byte-buddy.version>1.18.14</byte-buddy.version>
         <assertj.version>3.27.7</assertj.version>
         <awaitility.version>4.3.0</awaitility.version>
 
