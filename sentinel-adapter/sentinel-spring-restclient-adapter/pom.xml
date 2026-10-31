@@ -16,8 +16,8 @@
     <packaging>jar</packaging>
 
     <properties>
-        <spring.version>7.0.6</spring.version>
-        <spring-boot.version>4.1.0</spring-boot.version>
+        <spring.version>7.0.10</spring.version>
+        <spring-boot.version>4.1.2</spring-boot.version>
 
         <skip.spring.v6x.test>false</skip.spring.v6x.test>
     </properties>

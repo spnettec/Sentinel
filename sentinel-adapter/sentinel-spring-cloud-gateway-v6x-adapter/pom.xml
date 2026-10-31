@@ -17,9 +17,9 @@
     <properties>
         <java.source.version>17</java.source.version>
         <java.target.version>17</java.target.version>
-        <spring.cloud.gateway.version>4.3.3</spring.cloud.gateway.version>
-        <spring.boot.version>4.0.4</spring.boot.version>
-        <spring.version>7.0.6</spring.version>
+        <spring.cloud.gateway.version>5.0.4</spring.cloud.gateway.version>
+        <spring.boot.version>4.1.2</spring.boot.version>
+        <spring.version>7.0.10</spring.version>
         <skip.spring.v6x.test>false</skip.spring.v6x.test>
     </properties>
 
@@ -35,7 +35,7 @@
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-gateway-server</artifactId>
+            <artifactId>spring-cloud-gateway-server-webflux</artifactId>
             <version>${spring.cloud.gateway.version}</version>
             <scope>provided</scope>
         </dependency>
@@ -48,7 +48,7 @@
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
+            <artifactId>spring-cloud-starter-gateway-server-webflux</artifactId>
             <version>${spring.cloud.gateway.version}</version>
             <scope>test</scope>
         </dependency>
